@@ -1,0 +1,5 @@
+import xacro
+
+xacroPath = "blabla"
+
+xacro_file = xacro.to_urdf(xacroPath, urdf_path=urdf_file)

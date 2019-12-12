@@ -21,9 +21,11 @@ find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(urdf REQUIRED)
 
+include_directories(include)
+
 set(dependencies "ament_index_cpp" "rclcpp" "urdf")
 
-add_executable(parser src/parser.cpp)
+add_executable(parser src/parser.cpp src/robot.cpp)
 ament_target_dependencies(parser ${dependencies})
 
 install(TARGETS

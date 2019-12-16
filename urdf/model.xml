@@ -56,6 +56,7 @@
   <origin xyz="0 .30 0" />
   <parent link="axis"/>
   <child link="leg1"/>
+  <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
 </joint>
 
 <link name="leg2">
@@ -88,6 +89,7 @@
   <origin xyz="0 -.30 0" />
   <parent link="axis"/>
   <child link="leg2"/>
+  <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
 </joint>
 
 <link name="body">
@@ -120,6 +122,7 @@
   <origin xyz="0 0 0" rpy="0 0 0" />
   <axis xyz="0 1 0" />
   <limit upper="0" lower="-.5" effort="10" velocity="10" />
+  <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
 </joint>
 
 <link name="head">
@@ -150,6 +153,7 @@
   <axis xyz="0 0 1" />
   <parent link="body"/>
   <child link="head"/>
+  <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
 </joint>
 
 <link name="rod">
@@ -183,6 +187,7 @@
   <limit upper="0" lower="-.5" effort="10" velocity="10" />
   <parent link="head"/>
   <child link="rod"/>
+  <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
 </joint>
 
 <link name="box">
@@ -213,6 +218,7 @@
   <origin xyz="0 0 0" />
   <parent link="rod"/>
   <child link="box"/>
+  <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
 </joint>
 
 </robot>

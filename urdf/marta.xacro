@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="rover_dummy" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="mass" value="1.0" />
   <xacro:property name="damping" value="0.1" />
   <xacro:property name="friction" value="0.1" />
@@ -45,54 +45,18 @@
   </link>
 
   <!-- Definition for a wheel assembly -->
-  <xacro:macro name="wheel_assembly" params="position *origin_DEP">
+  <xacro:macro name="wheel_assembly" params="position configuration *origin">
 
-
-    <joint name="joint_DEP_${position}" type="fixed">
+    <joint name="joint_deploy_${position}" type="revolute">
       <parent link="base_link"/>
-      <child link="link_DEP_${position}"/>
+      <child link="link_${position}"/>
       <limit effort="${limit_steer_effort}" lower="${limit_steer_lower}" upper="${limit_steer_upper}" velocity="${limit_steer_velocity}"/>
-      <xacro:insert_block name="origin_DEP" />
-      <axis xyz="0 1 0"/>
-      <dynamics damping="${damping}" friction="${friction}"/>
-    </joint>
-
-    <link name="link_DEP_${position}">
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="${size_link} ${size_link} ${size_link}"/>
-        </geometry>
-      </collision>
-      <inertial>
-          <mass value="${mass}"/>
-          <inertia
-              ixx="${mass / 12.0 * (size_link * size_link / 2)}"
-              iyy="${mass / 12.0 * (size_link * size_link / 2)}"
-              izz="${mass / 12.0 * (size_link * size_link / 2)}"
-              ixy="0"
-              ixz="0"
-              iyz="0"/>
-      </inertial>
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="${size_link} ${size_link} ${size_link}"/>
-        </geometry>
-      </visual>
-    </link>
-
-
-    <joint name="joint_STR_${position}" type="fixed">
-      <parent link="link_DEP_${position}"/>
-      <child link="link_STR_${position}"/>
-      <limit effort="${limit_steer_effort}" lower="${limit_steer_lower}" upper="${limit_steer_upper}" velocity="${limit_steer_velocity}"/>
-      <origin xyz="-0.15 0 0.15" rpy="-1.57 0 0"/>
+      <xacro:insert_block name="origin" />
       <axis xyz="0 0 1"/>
       <dynamics damping="${damping}" friction="${friction}"/>
     </joint>
 
-    <link name="link_STR_${position}">
+    <link name="link_deploy_${position}">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -117,16 +81,50 @@
       </visual>
     </link>
 
-    <joint name="joint_DRV_${position}" type="fixed">
-      <parent link="link_STR_${position}"/>
-      <child link="link_DRV_${position}"/>
+    <joint name="joint_steer_${position}" type="revolute">
+      <parent link="base_link"/>
+      <child link="link_${position}"/>
+      <limit effort="${limit_steer_effort}" lower="${limit_steer_lower}" upper="${limit_steer_upper}" velocity="${limit_steer_velocity}"/>
+      <xacro:insert_block name="origin" />
+      <axis xyz="0 0 1"/>
+      <dynamics damping="${damping}" friction="${friction}"/>
+    </joint>
+
+    <link name="link_steer_${position}">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${size_link} ${size_link} ${size_link}"/>
+        </geometry>
+      </collision>
+      <inertial>
+          <mass value="${mass}"/>
+          <inertia
+              ixx="${mass / 12.0 * (size_link * size_link / 2)}"
+              iyy="${mass / 12.0 * (size_link * size_link / 2)}"
+              izz="${mass / 12.0 * (size_link * size_link / 2)}"
+              ixy="0"
+              ixz="0"
+              iyz="0"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${size_link} ${size_link} ${size_link}"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="joint_drive_${position}" type="continuous">
+      <parent link="link_${position}"/>
+      <child link="wheel_${position}"/>
       <limit effort="${limit_drive_effort}" velocity="${limit_drive_velocity}"/>
-      <origin xyz="0 0 ${-size_link / 2 - 2 * wheel_radius}" rpy="-1.57 0 0"/>
+      <origin xyz="0 0 ${-size_link / 2 - 2 * wheel_radius}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="${damping}" friction="${friction}"/>
     </joint>
 
-    <link name="link_DRV_${position}">
+    <link name="wheel_${position}">
       <collision>
         <origin xyz="0 0 0" rpy="${pi / 2} 0 0"/>
         <geometry>
@@ -151,50 +149,49 @@
       </visual>
     </link>
   
-    <transmission name=" _STR_${position}">
+    <transmission name=" _steer_${position}">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint_STR_${position}">
+      <joint name="joint_steer_${position}">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       </joint>
-      <actuator name="motor_STR_${position}">
+      <actuator name="motor_steer_${position}">
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
   
-    <transmission name="transmission_DRV_${position}">
+    <transmission name="transmission_drive_${position}">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint_DRV_${position}">
+      <joint name="joint_drive_${position}">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       </joint>
-      <actuator name="motor_DRV_${position}">
+      <actuator name="motor_drive_${position}">
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
   </xacro:macro>
 
   <!-- Define all the wheel assemblies as set their positions -->
-  <xacro:wheel_assembly position="RF">
-    <origin xyz="${(size_base / 2 + size_link)} ${-(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
+  <xacro:wheel_assembly position="back_left">
+    <origin xyz="${-(size_base / 2 + size_link)} ${(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="RM">
+  <xacro:wheel_assembly position="back_right">
+    <origin xyz="${-(size_base / 2 + size_link)} ${-(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
+  </xacro:wheel_assembly>
+
+  <xacro:wheel_assembly position="center_left">
+    <origin xyz="0 ${(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
+  </xacro:wheel_assembly>
+
+  <xacro:wheel_assembly position="center_right">
     <origin xyz="0 ${-(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="RR">
-    <!-- <origin xyz="${-(size_base / 2 + size_link)} ${-(size_base / 2 + size_link)} 0" rpy="0 0 0"/> -->
-    <origin xyz="${-(size_base / 2 + size_link)} ${-(size_base / 2 + size_link)} 0" rpy="1.57 0 0"/>
-  </xacro:wheel_assembly>
-
-  <xacro:wheel_assembly position="LF">
+  <xacro:wheel_assembly position="front_left">
     <origin xyz="${(size_base / 2 + size_link)} ${(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
   </xacro:wheel_assembly>
-  
-  <xacro:wheel_assembly position="LM">
-    <origin xyz="0 ${(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
-  </xacro:wheel_assembly>
-  
-  <xacro:wheel_assembly position="LR">
-    <origin xyz="${-(size_base / 2 + size_link)} ${(size_base / 2 + size_link)} 0" rpy="1.57 0 0"/>
+
+  <xacro:wheel_assembly position="front_right">
+    <origin xyz="${(size_base / 2 + size_link)} ${-(size_base / 2 + size_link)} 0" rpy="0 0 0"/>
   </xacro:wheel_assembly>
 </robot>

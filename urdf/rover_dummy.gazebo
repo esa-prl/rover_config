@@ -25,73 +25,73 @@
     <material>Gazebo/Gold</material>
   </gazebo>
   
-  <gazebo reference="link_back_left">
+  <gazebo reference="link_LR">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="wheel_back_left">
+  <gazebo reference="wheel_LR">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
   
-  <gazebo reference="link_back_right">
+  <gazebo reference="link_RR">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="wheel_back_right">
+  <gazebo reference="wheel_RR">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
   
-  <gazebo reference="link_center_left">
+  <gazebo reference="link_LM">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="wheel_center_left">
+  <gazebo reference="wheel_LM">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
   
-  <gazebo reference="link_front_left">
+  <gazebo reference="link_LF">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="wheel_front_left">
+  <gazebo reference="wheel_LF">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
   
-  <gazebo reference="link_center_right">
+  <gazebo reference="link_RM">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="wheel_center_right">
+  <gazebo reference="wheel_RM">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
   </gazebo>
   
-  <gazebo reference="link_front_right">
+  <gazebo reference="link_RF">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="wheel_front_right">
+  <gazebo reference="wheel_RF">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>

@@ -16,8 +16,8 @@
   <xacro:property name="limit_steer_upper" value="${pi / 2}" />
   <xacro:property name="limit_steer_velocity" value="1.0" />
 
-  <xacro:property name="side_boogie_lower" value="${-pi / 2}" />
-  <xacro:property name="side_boogie_upper" value="${pi / 2}" />
+  <xacro:property name="side_boogie_lower" value="${-pi / 4}" />
+  <xacro:property name="side_boogie_upper" value="${pi / 4}" />
 
   <!-- Import all Gazebo-customization elements, including Gazebo colors and plugins -->
   <xacro:include filename="$(find rover_config)/urdf/marta.gazebo" />
@@ -53,7 +53,7 @@
 
     <xacro:property name="boogie_link" value="link_boogie_${position}" />
 
-    <joint name="joint_boogie_${position}" type="fixed">
+    <joint name="joint_boogie_${position}" type="revolute">
       <parent link="base_link"/>
       <child link="link_boogie_${position}"/>
       <xacro:insert_block name="origin_boogie" />
@@ -92,7 +92,7 @@
 
   <!-- Definition for a wheel assembly -->
   <xacro:macro name="wheel_assembly" params="position boogie_name *origin_DEP *origin_STR">
-    <joint name="joint_DEP_${position}" type="fixed">
+    <joint name="joint_DEP_${position}" type="revolute">
       <parent link="link_boogie_${boogie_name}"/>
       <child link="link_DEP_${position}"/>
       <limit effort="${limit_steer_effort}" lower="${limit_steer_lower}" upper="${limit_steer_upper}" velocity="${limit_steer_velocity}"/>
@@ -127,7 +127,7 @@
     </link>
 
 
-    <joint name="joint_STR_${position}" type="fixed">
+    <joint name="joint_STR_${position}" type="revolute">
       <parent link="link_DEP_${position}"/>
       <child link="link_STR_${position}"/>
       <limit effort="${limit_steer_effort}" lower="${limit_steer_lower}" upper="${limit_steer_upper}" velocity="${limit_steer_velocity}"/>
@@ -162,7 +162,7 @@
       </visual>
     </link>
 
-    <joint name="joint_DRV_${position}" type="fixed">
+    <joint name="joint_DRV_${position}" type="continuous">
       <parent link="link_STR_${position}"/>
       <child link="link_DRV_${position}"/>
       <limit effort="${limit_drive_effort}" velocity="${limit_drive_velocity}"/>

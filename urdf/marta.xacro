@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="rover_dummy" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="mass" value="1.0" />
   <xacro:property name="damping" value="0.1" />
   <xacro:property name="friction" value="0.1" />
@@ -20,7 +20,7 @@
   <xacro:property name="side_boogie_upper" value="${pi / 2}" />
 
   <!-- Import all Gazebo-customization elements, including Gazebo colors and plugins -->
-  <xacro:include filename="$(find rover_config)/urdf/rover_dummy.gazebo" />
+  <xacro:include filename="$(find rover_config)/urdf/marta.gazebo" />
 
   <!-- Base of the rover, must be named "base_link" -->
   <link name="base_link">

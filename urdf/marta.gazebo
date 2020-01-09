@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      
-      <robotNamespace>marta</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    <plugin name="rover_gazebo_joint_plugin" filename="librover_gazebo_joint_plugin.so">
+      <ros>
+        <namespace>marta</namespace>
+      </ros>
+      <update_rate>1.0</update_rate>
     </plugin>
 
     <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
@@ -18,7 +19,41 @@
       <rpy_offsets>0 0 0</rpy_offsets>
       <gaussian_noise>0.0</gaussian_noise>
     </plugin>
+
+    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+
+      <ros>
+
+        <!-- Add a namespace -->
+        <namespace>marta</namespace>
+
+        <!-- Remap the default topic -->
+        <argument>cmd_vel:=custom_cmd_vel</argument>
+        <argument>odom:=custom_odom</argument>
+
+      </ros>
+
+      <!-- Set control loop update rate -->
+      <update_rate>100</update_rate>
+      <!-- Set odom publish rate -->
+      <publish_rate>10</publish_rate>
+
+      <!-- Set if odom required -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+
+      <!-- Frame IDs -->
+      <odometry_frame>odom_demo</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+
+      <!-- Set odom covariance -->
+      <covariance_x>0.0001</covariance_x>
+      <covariance_y>0.0001</covariance_y>
+      <covariance_yaw>0.01</covariance_yaw>
+
+    </plugin>
   </gazebo>
+
   
   <gazebo reference="base_link">
     <mu1>0.2</mu1>

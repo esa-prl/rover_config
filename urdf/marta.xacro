@@ -91,13 +91,14 @@
   </xacro:macro>
 
   <!-- Definition for a wheel assembly -->
-  <xacro:macro name="wheel_assembly" params="position boogie_name *origin_DEP *origin_STR">
+  <!-- Driving direction is used to invert the direction of the deployment and driving joint -->
+  <xacro:macro name="wheel_assembly" params="position boogie_name driving_direction *origin_DEP *origin_STR">
     <joint name="joint_DEP_${position}" type="revolute">
       <parent link="link_boogie_${boogie_name}"/>
       <child link="link_DEP_${position}"/>
       <limit effort="${limit_steer_effort}" lower="${limit_steer_lower}" upper="${limit_steer_upper}" velocity="${limit_steer_velocity}"/>
       <xacro:insert_block name="origin_DEP" />
-      <axis xyz="0 0 1"/>
+      <axis xyz="0 0 ${driving_direction}"/>
       <dynamics damping="${damping}" friction="${friction}"/>
     </joint>
 
@@ -167,7 +168,7 @@
       <child link="link_DRV_${position}"/>
       <limit effort="${limit_drive_effort}" velocity="${limit_drive_velocity}"/>
       <origin xyz="0 0 ${-size_link / 2 - 1.1 * wheel_radius}" rpy="-1.57 0 0"/>
-      <axis xyz="0 0 1"/>
+      <axis xyz="0 0 ${driving_direction}"/>
       <dynamics damping="${damping}" friction="${friction}"/>
     </joint>
 
@@ -225,12 +226,12 @@
     <origin xyz="0.3 ${size_base / 2} 0" rpy="${- pi / 2} 0 0"/>
   </xacro:boogie>
 
-  <xacro:wheel_assembly position="LF" boogie_name="${side_boogie_left_name}">
+  <xacro:wheel_assembly position="LF" boogie_name="${side_boogie_left_name}" driving_direction="1">
     <origin xyz="0.2 0 0.05" rpy="0 0 0"/>
     <origin xyz="0.1 0 0.1" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="LM" boogie_name="${side_boogie_left_name}">
+  <xacro:wheel_assembly position="LM" boogie_name="${side_boogie_left_name}" driving_direction="1">
     <origin xyz="-0.2 0 0.05" rpy="0 0 0"/>
     <origin xyz="-0.1 0 0.1" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
@@ -243,12 +244,12 @@
     <origin xyz="0.3 -${size_base / 2} 0" rpy="${- pi / 2} 0 ${pi}"/>
   </xacro:boogie>
 
-  <xacro:wheel_assembly position="RF" boogie_name="${side_boogie_right_name}">
+  <xacro:wheel_assembly position="RF" boogie_name="${side_boogie_right_name}" driving_direction="-1">
     <origin xyz="-0.2 0 0.05" rpy="0 0 0"/>
     <origin xyz="-0.1 0 0.1" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="RM" boogie_name="${side_boogie_right_name}">
+  <xacro:wheel_assembly position="RM" boogie_name="${side_boogie_right_name}" driving_direction="-1">
     <origin xyz="0.2 0 0.05" rpy="0 0 0"/>
     <origin xyz="0.1 0 0.1" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
@@ -260,15 +261,14 @@
     <origin xyz="-${size_base / 2 + 0.05} 0 0" rpy="${- pi / 2} 0 ${pi / 2}"/>
   </xacro:boogie>
 
-  <xacro:wheel_assembly position="RR" boogie_name="${side_boogie_rear_name}">
-    <origin xyz="-0.3 0 0.05" rpy="0 ${3 * pi / 2} 0"/>
-    <origin xyz="0.1 0 0.1" rpy="${pi / 2} 0 0"/>
-  </xacro:wheel_assembly>
-
-  <xacro:wheel_assembly position="LR" boogie_name="${side_boogie_rear_name}">
+  <xacro:wheel_assembly position="LR" boogie_name="${side_boogie_rear_name}" driving_direction="1">
     <origin xyz="0.3 0 0.05" rpy="0 ${pi / 2} 0"/>
     <origin xyz="-0.1 0 0.1" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
+  <xacro:wheel_assembly position="RR" boogie_name="${side_boogie_rear_name}" driving_direction="-1">
+    <origin xyz="-0.3 0 0.05" rpy="0 ${3 * pi / 2} 0"/>
+    <origin xyz="0.1 0 0.1" rpy="${pi / 2} 0 0"/>
+  </xacro:wheel_assembly>
 
 </robot>

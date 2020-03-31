@@ -12,7 +12,7 @@ NICE TO HAVE
 KNOWN BUGS
 ----------
 
-w.i.p (2019-11-20)
+0.0.1 (unreleased)
 ------------------
 * made model with MaRTA locomotion configuration
 * define coordinate frames and axis

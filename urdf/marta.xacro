@@ -12,8 +12,8 @@
   <xacro:property name="limit_drive_effort" value="100.0" />
   <xacro:property name="limit_drive_velocity" value="1.0" />
   <xacro:property name="limit_steer_effort" value="100.0" />
-  <xacro:property name="limit_steer_lower" value="${-pi / 2}" />
-  <xacro:property name="limit_steer_upper" value="${pi / 2}" />
+  <xacro:property name="limit_steer_lower" value="${-100*pi/180}" />
+  <xacro:property name="limit_steer_upper" value="${ 100*pi/180}" />
   <xacro:property name="limit_steer_velocity" value="1.0" />
 
   <xacro:property name="side_boogie_lower" value="${-pi / 4}" />

@@ -157,17 +157,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        link_boogie_LFB:
+        link_bogie_LFB:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_boogie_MRB:
+        link_bogie_MRB:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_boogie_RFB:
+        link_bogie_RFB:
           Alpha: 1
           Show Axes: false
           Show Trail: false

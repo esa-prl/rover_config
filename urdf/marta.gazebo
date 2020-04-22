@@ -8,7 +8,7 @@
       <update_rate>100.0</update_rate>
       <pid_deploy>50.0 0.1 0.0</pid_deploy>
       <pid_drive>5.0 0.1 0.0</pid_drive>
-      <pid_steer>5.0 0.1 0.0</pid_steer>
+      <pid_steer>50.0 0.1 0.0</pid_steer>
     </plugin>
 
     <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
@@ -30,9 +30,9 @@
         <remapping>joint_states:=joint_states</remapping>
       </ros>
       <update_rate>2</update_rate>
-      <joint_name>joint_boogie_LFB</joint_name>
-      <joint_name>joint_boogie_RFB</joint_name>
-      <joint_name>joint_boogie_MRB</joint_name>
+      <joint_name>joint_bogie_LFB</joint_name>
+      <joint_name>joint_bogie_RFB</joint_name>
+      <joint_name>joint_bogie_MRB</joint_name>
       <joint_name>joint_DEP_LF</joint_name>
       <joint_name>joint_DEP_RF</joint_name>
       <joint_name>joint_DEP_LM</joint_name>
@@ -61,19 +61,19 @@
     <material>Gazebo/Gray</material>
   </gazebo>
   
-  <gazebo reference="link_boogie_LFB">
+  <gazebo reference="link_bogie_LFB">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Gray</material>
   </gazebo>
   
-  <gazebo reference="link_boogie_RFB">
+  <gazebo reference="link_bogie_RFB">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Gray</material>
   </gazebo>
 
-  <gazebo reference="link_boogie_MRB">
+  <gazebo reference="link_bogie_MRB">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Gray</material>

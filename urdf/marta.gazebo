@@ -17,6 +17,7 @@
       </ros>
       <body_name>base_link</body_name>
       <frame_name>map</frame_name>
+      <tf_frame_name>map</tf_frame_name>
       <update_rate>20.0</update_rate>
       <xyz_offsets>0 0 0</xyz_offsets>
       <rpy_offsets>0 0 0</rpy_offsets>

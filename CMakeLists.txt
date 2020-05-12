@@ -28,20 +28,15 @@ set(dependencies "ament_index_cpp" "rclcpp" "urdf")
 add_executable(parser src/parser.cpp src/robot.cpp)
 ament_target_dependencies(parser ${dependencies})
 
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY maps DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY rviz DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
+
 install(TARGETS
   parser
   DESTINATION lib/${PROJECT_NAME})
 
-# install the launch directory
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}/
-)
-
-# install the urdf directory
-install(DIRECTORY
-  urdf
-  DESTINATION share/${PROJECT_NAME}/
-)
 
 ament_package()

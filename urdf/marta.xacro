@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- PHYSICS -->
-  <xacro:property name="damping" value="0.1" />
+  <xacro:property name="damping" value="2" />
   <xacro:property name="friction" value="0.1" />
 
   <!-- CHASSIS -->
@@ -11,6 +11,10 @@
   <xacro:property name="chassis_z" value="0.343" />
   
   <!-- SIDE BOGIE -->
+  <!-- TODO: FIX INTERTIA and mass. Mass
+  values were multiplied by 10 as the model exploded otherwise due to low inertia.
+  The real values are commented out.-->
+  
   <!-- <xacro:property name="side_bogie_mass" value="0.15" /> -->
   <xacro:property name="side_bogie_mass" value="1.5" />
   <xacro:property name="side_bogie_l" value="0.26" />
@@ -52,7 +56,6 @@
   <xacro:property name="str_z" value="0.1015" />
 
   <xacro:property name="str_pos_short_x" value="0.02" />
-  <xacro:property name="test" value="0.02" />
   <xacro:property name="str_pos_long_x" value="0.045" />
   <xacro:property name="str_pos_y" value="0.031" />
   <xacro:property name="str_pos_z" value="0.0305" />
@@ -346,16 +349,12 @@
 
   <xacro:wheel_assembly position="LR" bogie_name="${side_bogie_rear_name}" driving_direction="1">
     <origin xyz="${rear_dep_pos_x} ${rear_dep_pos_y} ${rear_dep_pos_z}" rpy="0 ${pi / 2} 0"/>
-    <!-- <origin xyz="0.3 0 0.05" rpy="0 ${pi / 2} 0"/> -->
-    <!-- <origin xyz="-${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/> -->
-    <origin xyz="-${test} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
+    <origin xyz="-${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
   <xacro:wheel_assembly position="RR" bogie_name="${side_bogie_rear_name}" driving_direction="-1">
     <origin xyz="-${rear_dep_pos_x} ${rear_dep_pos_y} ${rear_dep_pos_z}" rpy="0 ${3 * pi / 2} 0"/>
-    <!-- <origin xyz="-0.3 0 0.05" rpy="0 ${3 * pi / 2} 0"/> -->
-    <!-- <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/> -->
-    <origin xyz="${test} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
+    <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
 </robot>

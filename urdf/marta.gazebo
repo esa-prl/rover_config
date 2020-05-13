@@ -7,8 +7,8 @@
       </ros>
       <update_rate>100.0</update_rate>
       <pid_deploy>350.0 0.1 0.0</pid_deploy>
+      <pid_steer>20.0 0.1 0.0</pid_steer>
       <pid_drive>5.0 0.1 0.0</pid_drive>
-      <pid_steer>5.0 0.1 0.0</pid_steer>
     </plugin>
 
     <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
@@ -29,7 +29,7 @@
         <namespace>/marta</namespace>
         <remapping>joint_states:=joint_states</remapping>
       </ros>
-      <update_rate>2</update_rate>
+      <update_rate>100</update_rate>
       <joint_name>joint_bogie_LFB</joint_name>
       <joint_name>joint_bogie_RFB</joint_name>
       <joint_name>joint_bogie_MRB</joint_name>

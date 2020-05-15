@@ -14,6 +14,7 @@
   <!-- TODO: FIX INTERTIA and mass. Mass
   values were multiplied by 10 as the model exploded otherwise due to low inertia.
   The real values are commented out.-->
+  <!-- TODO: STR and DEP INERTIA and mass are not correct anymore  -->
   
   <!-- <xacro:property name="side_bogie_mass" value="0.15" /> -->
   <xacro:property name="side_bogie_mass" value="1.5" />
@@ -26,18 +27,19 @@
   <!-- REAR BOGIE -->
   <!-- <xacro:property name="rear_bogie_mass" value="0.4" /> -->
   <xacro:property name="rear_bogie_mass" value="4" />
-  <xacro:property name="rear_bogie_l" value="0.559" />
+  <xacro:property name="rear_bogie_l" value="0.5815" />
   <xacro:property name="rear_bogie_r" value="0.0125" />
   <xacro:property name="rear_bogie_pos_x" value="-0.316" />
   <xacro:property name="rear_bogie_pos_y" value="0" />
   <xacro:property name="rear_bogie_pos_z" value="-0.015" />
 
-  <!-- DEPLOYMENT JOINT -->
-  <!-- <xacro:property name="dep_mass" value="0.57" /> -->
-  <xacro:property name="dep_mass" value="5.7" />
   <xacro:property name="dep_x" value="0.056" />
   <xacro:property name="dep_y" value="0.088" />
   <xacro:property name="dep_z" value="0.0855" />
+
+  <!-- DEPLOYMENT JOINT -->
+  <!-- <xacro:property name="dep_mass" value="0.57" /> -->
+  <xacro:property name="dep_mass" value="5.7" />
 
   <xacro:property name="side_dep_pos_front_x" value="0.14" />
   <xacro:property name="side_dep_pos_mid_x" value="0.12" />
@@ -48,13 +50,15 @@
   <xacro:property name="rear_dep_pos_y" value="-0.01" />
   <xacro:property name="rear_dep_pos_z" value="0.0325" />
 
+  <xacro:property name="str_x" value="0.079" />
+  <xacro:property name="str_y" value="0.1015" />
+  <xacro:property name="str_z" value="0.0435" />
+  <xacro:property name="str_x_link_diff" value="0.017" />
+
+
   <!-- STEERING JOINT -->
   <!-- <xacro:property name="str_mass" value="0.025" /> -->
   <xacro:property name="str_mass" value="0.25" />
-  <xacro:property name="str_x" value="0.079" />
-  <xacro:property name="str_y" value="0.0435" />
-  <xacro:property name="str_z" value="0.1015" />
-
   <xacro:property name="str_pos_short_x" value="0.02" />
   <xacro:property name="str_pos_long_x" value="0.045" />
   <xacro:property name="str_pos_y" value="0.031" />
@@ -113,7 +117,7 @@
   </link>
 
   <!-- BOGIE DEFINITION -->
-  <xacro:macro name="bogie" params="position bogie_mass bogie_r bogie_l *origin_bogie *geometry">
+  <xacro:macro name="bogie" params="position bogie_mass bogie_r bogie_l dep_pos_z dep_rot_y *origin_bogie *geometry">
 
     <xacro:property name="bogie_link" value="link_bogie_${position}" />
 
@@ -143,20 +147,49 @@
               ixz="0"
               iyz="0"/>
       </inertial>
-
+      <!-- BAR -->
       <visual>
         <origin xyz="0 0 0" rpy="0 ${pi / 2} 0"/>
         <geometry>
           <xacro:insert_block name="geometry" />
         </geometry>
       </visual>
-    </link>
 
+      <!-- DEP MOTORS -->
+      <collision>
+        <origin xyz="${bogie_l/2} -0.0325 ${dep_pos_z-dep_z/2}" rpy="0 ${dep_rot_y} 0"/>
+        <geometry>
+          <box size="${dep_x} ${dep_y} ${dep_z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="${bogie_l/2} -0.0325 ${dep_pos_z-dep_z/2}" rpy="0 ${dep_rot_y} 0"/>
+        <geometry>
+          <box size="${dep_x} ${dep_y} ${dep_z}"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="${-bogie_l/2} -0.0325 ${dep_pos_z-dep_z/2}" rpy="0 ${dep_rot_y} 0"/>
+        <geometry>
+          <box size="${dep_x} ${dep_y} ${dep_z}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="${-bogie_l/2} -0.0325 ${dep_pos_z-dep_z/2}" rpy="0 ${dep_rot_y} 0"/>
+        <geometry>
+          <box size="${dep_x} ${dep_y} ${dep_z}"/>
+        </geometry>
+      </visual>
+
+    </link>
   </xacro:macro>
 
   <!-- Definition for a wheel assembly -->
   <!-- Driving direction is used to invert the direction of the deployment and driving joint -->
-  <xacro:macro name="wheel_assembly" params="position bogie_name driving_direction *origin_DEP *origin_STR">
+  <xacro:macro name="wheel_assembly" params="position bogie_name driving_direction str_pos_x *origin_DEP *origin_STR">
     <!-- DEPLOYMENT JOINT -->
     <joint name="joint_DEP_${position}" type="revolute">
       <parent link="link_bogie_${bogie_name}"/>
@@ -170,11 +203,17 @@
     <!-- DEPLOYMENT LINK-->
     <link name="link_DEP_${position}">
       <collision>
-        <origin xyz="0 0 -${dep_z/2}" rpy="0 0 0"/>
+        <origin xyz="${str_pos_x} ${str_pos_y-str_y/2} ${str_pos_z}" rpy="0 0 0"/>
         <geometry>
-          <box size="${dep_x} ${dep_y} ${dep_z}"/>
+          <box size="${str_x} ${str_y} ${str_z}"/>
         </geometry>
       </collision>
+      <visual>
+        <origin xyz="${str_pos_x} ${str_pos_y-str_y/2} ${str_pos_z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${str_x} ${str_y} ${str_z}"/>
+        </geometry>
+      </visual>
       <inertial>
           <mass value="${dep_mass}"/>
           <inertia
@@ -185,12 +224,7 @@
               ixz="0"
               iyz="0"/>
       </inertial>
-      <visual>
-        <origin xyz="0 0 -${dep_z/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${dep_x} ${dep_y} ${dep_z}"/>
-        </geometry>
-      </visual>
+
     </link>
 
 
@@ -206,12 +240,32 @@
 
     <!-- STEERING LINK -->
     <link name="link_STR_${position}">
+      <!-- Wheel bracket -->
       <collision>
-        <origin xyz="0 0 ${str_z/2}" rpy="0 0 0"/>
+        <origin xyz="0.0 0.049 -0.0545" rpy="0 0 0"/>
         <geometry>
-          <box size="${str_x} ${str_y} ${str_z}"/>
+          <box size="0.044 0.006 0.109"/>
         </geometry>
       </collision>
+      <visual>
+        <origin xyz="0.0 0.049 -0.0545" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.044 0.006 0.109"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.013 -0.00325" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.044 0.078 0.0065"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0.0 0.013 -0.00325" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.044 0.078 0.0065"/>
+        </geometry>
+      </visual>
+
       <inertial>
           <mass value="${str_mass}"/>
           <inertia
@@ -222,19 +276,6 @@
               ixz="0"
               iyz="0"/>
       </inertial>
-      <visual>
-        <origin xyz="0 0 ${str_z/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${str_x} ${str_y} ${str_z}"/>
-        </geometry>
-      </visual>
-      <visual>
-        <origin xyz="0.0 0.049 -0.0545" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.044 0.006 0.109"/>
-        </geometry>
-      </visual>
-
     </link>
 
     <!-- DRIVING JOINT -->
@@ -279,7 +320,7 @@
       </visual>
     </link>
   
-    <transmission name="_STR_${position}">
+    <transmission name="transmission_STR_${position}">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="joint_STR_${position}">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -304,17 +345,17 @@
   <!-- LEFT BOGIE  -->
   <xacro:property name="side_bogie_left_name" value="LFB" />
   
-  <xacro:bogie position="${side_bogie_left_name}" bogie_mass="${side_bogie_mass}" bogie_r="${side_bogie_r}" bogie_l="${side_bogie_l}">
+  <xacro:bogie position="${side_bogie_left_name}" bogie_mass="${side_bogie_mass}" bogie_r="${side_bogie_r}" bogie_l="${side_bogie_l}" dep_pos_z="${side_dep_pos_z}" dep_rot_y="${0.0}">
     <origin xyz="${side_bogie_pos_x} ${side_bogie_pos_y} ${side_bogie_pos_z}" rpy="${- pi / 2} 0 0"/>
     <cylinder length="${side_bogie_l}" radius="${side_bogie_r}"/>
   </xacro:bogie>
 
-  <xacro:wheel_assembly position="LF" bogie_name="${side_bogie_left_name}" driving_direction="1">
+  <xacro:wheel_assembly position="LF" bogie_name="${side_bogie_left_name}" driving_direction="1" str_pos_x="${str_pos_short_x-str_x_link_diff}">
     <origin xyz="${side_dep_pos_front_x} ${side_dep_pos_y} ${side_dep_pos_z}" rpy="0 0 0"/>
     <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="LM" bogie_name="${side_bogie_left_name}" driving_direction="1">
+  <xacro:wheel_assembly position="LM" bogie_name="${side_bogie_left_name}" driving_direction="1" str_pos_x="${-(str_pos_long_x-str_x_link_diff)}">
     <origin xyz="-${side_dep_pos_mid_x} ${side_dep_pos_y} ${side_dep_pos_z}" rpy="0 0 0"/>
     <origin xyz="-${str_pos_long_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
@@ -323,17 +364,17 @@
   <!-- RIGHT BOGIE  -->
   <xacro:property name="side_bogie_right_name" value="RFB" />
 
-  <xacro:bogie position="${side_bogie_right_name}" bogie_mass="${side_bogie_mass}" bogie_r="${side_bogie_r}" bogie_l="${side_bogie_l}">
+  <xacro:bogie position="${side_bogie_right_name}" bogie_mass="${side_bogie_mass}" bogie_r="${side_bogie_r}" bogie_l="${side_bogie_l}" dep_pos_z="${side_dep_pos_z}" dep_rot_y="${0.0}">
     <origin xyz="${side_bogie_pos_x} -${side_bogie_pos_y} ${side_bogie_pos_z}" rpy="${- pi / 2} 0 ${pi}"/>
     <cylinder length="${side_bogie_l}" radius="${side_bogie_r}"/>
   </xacro:bogie>
 
-  <xacro:wheel_assembly position="RF" bogie_name="${side_bogie_right_name}" driving_direction="-1">
+  <xacro:wheel_assembly position="RF" bogie_name="${side_bogie_right_name}" driving_direction="-1" str_pos_x="${-(str_pos_short_x-str_x_link_diff)}">
     <origin xyz="-${side_dep_pos_front_x} ${side_dep_pos_y} ${side_dep_pos_z}" rpy="0 0 0"/>
     <origin xyz="-${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="RM" bogie_name="${side_bogie_right_name}" driving_direction="-1">
+  <xacro:wheel_assembly position="RM" bogie_name="${side_bogie_right_name}" driving_direction="-1" str_pos_x="${(str_pos_long_x-str_x_link_diff)}">
     <origin xyz="${side_dep_pos_mid_x} ${side_dep_pos_y} ${side_dep_pos_z}" rpy="0 0 0"/>
     <origin xyz="${str_pos_long_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
@@ -341,17 +382,17 @@
   <!-- REAR BOGIE  -->
   <xacro:property name="side_bogie_rear_name" value="MRB" />
 
-  <xacro:bogie position="${side_bogie_rear_name}" bogie_mass="${rear_bogie_mass}" bogie_r="${rear_bogie_r}" bogie_l="${rear_bogie_l}">
+  <xacro:bogie position="${side_bogie_rear_name}" bogie_mass="${rear_bogie_mass}" bogie_r="${rear_bogie_r}" bogie_l="${rear_bogie_l}" dep_pos_z="${rear_dep_pos_z}" dep_rot_y="${-pi/2}">
     <origin xyz="${rear_bogie_pos_x} ${rear_bogie_pos_y} ${rear_bogie_pos_z}" rpy="${- pi / 2} 0 ${pi / 2}"/>
     <cylinder length="${rear_bogie_l}" radius="${rear_bogie_r}"/>
   </xacro:bogie>
 
-  <xacro:wheel_assembly position="LR" bogie_name="${side_bogie_rear_name}" driving_direction="1">
+  <xacro:wheel_assembly position="LR" bogie_name="${side_bogie_rear_name}" driving_direction="1" str_pos_x="${-(str_pos_short_x-str_x_link_diff)}">
     <origin xyz="${rear_dep_pos_x} ${rear_dep_pos_y} ${rear_dep_pos_z}" rpy="0 ${pi / 2} 0"/>
     <origin xyz="-${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-  <xacro:wheel_assembly position="RR" bogie_name="${side_bogie_rear_name}" driving_direction="-1">
+  <xacro:wheel_assembly position="RR" bogie_name="${side_bogie_rear_name}" driving_direction="-1" str_pos_x="${(str_pos_short_x-str_x_link_diff)}">
     <origin xyz="-${rear_dep_pos_x} ${rear_dep_pos_y} ${rear_dep_pos_z}" rpy="0 ${3 * pi / 2} 0"/>
     <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>

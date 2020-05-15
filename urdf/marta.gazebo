@@ -82,37 +82,37 @@
   <gazebo reference="link_STR_LF">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Gray</material>
   </gazebo>
 
   <gazebo reference="link_STR_RF">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Gray</material>
   </gazebo>
 
   <gazebo reference="link_STR_RM">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Gray</material>
   </gazebo>
 
   <gazebo reference="link_STR_LM">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Gray</material>
   </gazebo>
 
   <gazebo reference="link_STR_RR">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Gray</material>
   </gazebo>
 
   <gazebo reference="link_STR_LR">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Gray</material>
   </gazebo>
 
   <gazebo reference="link_DRV_LF">

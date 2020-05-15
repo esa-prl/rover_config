@@ -1,1 +1,76 @@
+gamepad_parser_node:
+    ros__parameters:
+        use_sim_time: True
+        deadzone: 0.3
+        continuous_data_streaming: False
 
+joy_node:
+    ros__parameters:
+        use_sim_time: True
+
+joint_state_publisher_node:
+    ros__parameters:
+        use_sim_time: True
+        use_gui: True
+        rate: 50
+        publish_default_velocities: True
+        publish_default_efforts: True
+        robot_description: ''
+        source_list: ['joint_states_sim']
+
+locomotion_manager_node:
+    ros__parameters:
+        use_sim_time: True
+        locomotion_modes: ["simple_rover_locomotion_node", "wheel_walking_node", "stop_mode_node"]
+
+robot_state_publisher_node:
+    ros__parameters:
+        use_sim_time: True
+        robot_description: ''
+
+stop_mode_node:
+    ros__parameters:
+        use_sim_time: True
+        # URDF Model Path
+        robot_description: ''
+
+        enable_pose_name: "NONE"
+        disable_pose_name: "NONE"
+
+        # Maps the names to the steering (str) and deployment (dep) positions:
+        # Must be two different vectors, since sometimes not all wheels are steerable
+        str_mapping: ['LF', 'RF', 'LM', 'RM', 'LR', 'RR']
+        dep_mapping: ['LF', 'RF', 'LM', 'RM', 'LR', 'RR']
+
+        # Rover poses saved as joint positions in [rad]
+        poses:
+          straight:
+            str_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+            dep_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+simple_rover_locomotion_node:
+    ros__parameters:
+        use_sim_time: True
+        # URDF Model Path
+        robot_description: ''
+
+        enable_pose_name: "straight"
+        disable_pose_name: "stowed"
+
+        # Maps the names to the steering (str) and deployment (dep) positions:
+        # Must be two different vectors, since sometimes not all wheels are steerable
+        str_mapping: ['LF', 'RF', 'LM', 'RM', 'LR', 'RR']
+        dep_mapping: ['LF', 'RF', 'LM', 'RM', 'LR', 'RR']
+
+        # Rover poses saved as joint positions in [rad]
+        poses:
+          stowed:
+            str_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+            dep_positions: [1.57, 1.57, 1.57, 1.57, -1.57, -1.57]
+          straight:
+            str_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+            dep_positions: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+simple_joint_simulation_node:
+    ros__parameters:
+        use_sim_time: True

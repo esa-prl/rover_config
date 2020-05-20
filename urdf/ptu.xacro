@@ -34,14 +34,28 @@
     <xacro:property name="joint_tilt_pos_z" value="0.0265" />
     <xacro:property name="joint_tilt_rot_x" value="${pi/2}" />
 
-    <!-- PAN LINK -->
-    <xacro:property name="link_tilt_mass" value="0.1" />
+    <!-- TILT LINK -->
+    <xacro:property name="link_tilt_mass" value="1.0" />
     <xacro:property name="link_tilt_x" value="0.022" />
     <xacro:property name="link_tilt_y" value="0.0035" />
     <xacro:property name="link_tilt_z" value="0.072" />
     <xacro:property name="link_tilt_pos_x" value="0.0" />
     <xacro:property name="link_tilt_pos_y" value="0.01625" />
     <xacro:property name="link_tilt_pos_z" value="0.0" />
+
+
+    <!-- CAM JOINT -->
+    <xacro:property name="joint_cam_pos_y" value="0.036" />
+    <xacro:property name="joint_cam_rot_x" value="${pi/2}" />
+
+    <!-- CAM LINK -->
+    <xacro:property name="link_cam_mass" value="1.0" />
+    <xacro:property name="link_cam_x" value="0.022" />
+    <xacro:property name="link_cam_y" value="0.0035" />
+    <xacro:property name="link_cam_z" value="0.072" />
+    <xacro:property name="link_cam_pos_x" value="0.0" />
+    <xacro:property name="link_cam_pos_y" value="0.01625" />
+    <xacro:property name="link_cam_pos_z" value="0.0" />
 
 
     <!-- MAST JOINT -->
@@ -169,6 +183,77 @@
         </geometry>
       </visual>
     </link>
+
+
+    <!-- CAMERA -->
+    <joint name="camera_joint" type="fixed">
+        <parent link="link_tilt"/>
+        <child link="link_cam"/>
+        <origin rpy="0 0 0" xyz="0.0 ${joint_cam_pos_y} 0.0"/>
+        <axis xyz="1 0 0" />
+    </joint>
+
+    <!-- CAMERA LINK -->
+    <link name="link_cam">
+      <inertial>
+        <mass value="${link_cam_mass}"/>
+          <inertia
+              ixx="${link_cam_mass / 12.0 * (link_cam_y * link_cam_z / 2)}"
+              iyy="${link_cam_mass / 12.0 * (link_cam_x * link_cam_z / 2)}"
+              izz="${link_cam_mass / 12.0 * (link_cam_x * link_cam_y / 2)}"
+              ixy="0"
+              ixz="0"
+              iyz="0"/>
+      </inertial>
+
+      <collision>
+        <origin xyz="${link_cam_pos_x} ${link_cam_pos_y} ${link_cam_pos_z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${link_cam_x} ${link_cam_y} ${link_cam_z}"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="${link_cam_pos_x} ${link_cam_pos_y} ${link_cam_pos_z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${link_cam_x} ${link_cam_y} ${link_cam_z}"/>
+        </geometry>
+      </visual>
+    </link>
+
+
+    <gazebo reference="link_cam">
+      <sensor type="camera" name="camera_camera_sensor">
+        <update_rate>30.0</update_rate>
+        <camera>
+          <pose>0.035 0 0.078 0 ${-pi/2} 0</pose>
+          <horizontal_fov>${85 * pi/180.0}</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>1020</width>
+            <height>1020</height>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+        </camera>
+
+        <plugin name="camera_camera_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>camera</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
 
   </xacro:macro>
 </robot>

@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
   <gazebo>
     <plugin name="rover_gazebo_joint_plugin" filename="librover_gazebo_joint_plugin.so">
-      <ros>
+<!--       <ros>
         <namespace>/marta</namespace>
       </ros>
+ -->  
       <update_rate>100.0</update_rate>
+      <joint_types></joint_types>
       <pid_deploy>350.0 0.1 0.0</pid_deploy>
       <pid_steer>20.0 0.1 0.0</pid_steer>
       <pid_drive>5.0 0.1 0.0</pid_drive>
@@ -26,7 +29,7 @@
     <plugin name="gazebo_ros_joint_state_publisher"
         filename="libgazebo_ros_joint_state_publisher.so">
       <ros>
-        <namespace>/marta</namespace>
+        <!-- <namespace>/marta</namespace> -->
         <remapping>joint_states:=joint_states</remapping>
       </ros>
       <update_rate>100</update_rate>
@@ -51,6 +54,9 @@
       <joint_name>joint_STR_RM</joint_name>
       <joint_name>joint_STR_LR</joint_name>
       <joint_name>joint_STR_RR</joint_name>
+<!--       <joint_name>ptu_base</joint_name>
+      <joint_name>joint_STR_pan</joint_name>
+      <joint_name>joint_STR_tilt</joint_name> -->
     </plugin>
   </gazebo>
 

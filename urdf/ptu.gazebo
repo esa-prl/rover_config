@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot name="ptu" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <gazebo>
+
+	<plugin name="gazebo_ros_joint_state_publisher"
+        filename="libgazebo_ros_joint_state_publisher.so">
+      <ros>
+        <remapping>joint_states:=joint_states</remapping>
+      </ros>
+      <update_rate>100</update_rate>
+      <joint_name>joint_STR_pan</joint_name>
+      <joint_name>joint_STR_tilt</joint_name>
+      <joint_name>ptu_base</joint_name>
+    </plugin>
+
+  </gazebo>
+  
+</robot>

@@ -1,43 +1,58 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
   <xacro:macro name="ptu" params="parent_link *origin">
-    
+    <!-- PHYSICS -->
+    <xacro:property name="ptu_damping" value="2" />
+    <xacro:property name="ptu_friction" value="0.1" />
+
+    <xacro:include filename="$(find rover_config)/urdf/ptu.gazebo" />
+
+
     <!-- PARAMETERS -->
     <!-- MAST LINK -->
-    <xacro:property name="mast_r" value="0.022" />
+    <xacro:property name="mast_r" value="0.011" />
     <xacro:property name="mast_l" value="0.6375" />
     <xacro:property name="mast_mass" value="4.0" />
 
     <!-- PAN JOINT -->
     <xacro:property name="pan_lower" value="-1.57" />
     <xacro:property name="pan_upper" value="1.57" />
-    <xacro:property name="joint_pan_z" value="${mast_l}" />
+    <xacro:property name="joint_pan_pos_z" value="${mast_l}" />
 
     <!-- PAN LINK -->
     <xacro:property name="link_pan_mass" value="0.1" />
-    <xacro:property name="link_pan_x" value="0.0" />
-    <xacro:property name="link_pan_y" value="0.0" />
-    <xacro:property name="link_pan_z" value="0.04" />
-    <xacro:property name="link_pan_pos_x" value="0.0" />
+    <xacro:property name="link_pan_x" value="0.05" />
+    <xacro:property name="link_pan_y" value="0.025" />
+    <xacro:property name="link_pan_z" value="0.025" />
+    <xacro:property name="link_pan_pos_x" value="-0.0125" />
     <xacro:property name="link_pan_pos_y" value="0.0" />
-    <xacro:property name="link_pan_pos_z" value="${link_pan_z}" />
+    <xacro:property name="link_pan_pos_z" value="${link_pan_z/2}" />
 
     <!-- TILT JOINT -->
     <xacro:property name="tilt_lower" value="-1.57" />
     <xacro:property name="tilt_upper" value="1.57" />
-    <xacro:property name="joint_tilt_z" value="${mast_l}" />
+    <xacro:property name="joint_tilt_pos_z" value="0.0265" />
+    <xacro:property name="joint_tilt_rot_x" value="${pi/2}" />
 
+    <!-- PAN LINK -->
+    <xacro:property name="link_tilt_mass" value="0.1" />
+    <xacro:property name="link_tilt_x" value="0.022" />
+    <xacro:property name="link_tilt_y" value="0.0035" />
+    <xacro:property name="link_tilt_z" value="0.072" />
+    <xacro:property name="link_tilt_pos_x" value="0.0" />
+    <xacro:property name="link_tilt_pos_y" value="0.01625" />
+    <xacro:property name="link_tilt_pos_z" value="0.0" />
 
 
     <!-- MAST JOINT -->
     <joint name="ptu_base" type="fixed">
       <parent link="${parent_link}"/>
-      <child link="mast"/>
+      <child link="link_mast"/>
       <xacro:insert_block name="origin" />
     </joint>
 
     <!-- MAST LINK -->
-    <link name="mast">
+    <link name="link_mast">
       <inertial>
         <mass value="${mast_mass}"/>
         <inertia
@@ -64,12 +79,13 @@
     </link>
 
     <!-- PAN JOINT -->
-    <joint name="pan" type="revolute">
-      <parent link="mast"/>
+    <joint name="joint_STR_pan" type="revolute">
+      <parent link="link_mast"/>
       <child link="link_pan"/>
-      <origin xyz="0 0 ${joint_pan_z}" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0 0 ${joint_pan_pos_z}" rpy="0.0 0.0 0.0"/>
       <limit effort="0" lower="${pan_lower}" upper="${pan_upper}" velocity="0"/>
       <axis xyz="0 0 1"/>
+      <dynamics damping="${ptu_damping}" friction="${ptu_friction}"/>
     </joint>
 
     <!-- PAN LINK -->
@@ -97,49 +113,62 @@
           <box size="${link_pan_x} ${link_pan_y} ${link_pan_z}"/>
         </geometry>
       </visual>
+
+      <!-- TILT MOTOR -->
+      <visual>
+        <origin xyz="0.0 0.03 ${joint_tilt_pos_z}" rpy="${pi/2} 0 0"/>
+        <geometry>
+          <cylinder length="0.06" radius="0.011"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.03 ${joint_tilt_pos_z}" rpy="${pi/2} 0 0"/>
+        <geometry>
+          <cylinder length="0.06" radius="0.011"/>
+        </geometry>
+      </collision>
+
+
     </link>
 
 
     <!-- TILT JOINT -->
-    <joint name="tilt" type="revolute">
-      <parent link="mast"/>
-      <child link="link_pan"/>
-      <origin xyz="0 0 ${mast_l}" rpy="0.0 0.0 0.0"/>
+    <joint name="joint_STR_tilt" type="revolute">
+      <parent link="link_pan"/>
+      <child link="link_tilt"/>
+      <origin xyz="0 0 ${joint_tilt_pos_z}" rpy="${joint_tilt_rot_x} 0.0 0.0"/>
       <limit effort="0" lower="${tilt_lower}" upper="${tilt_upper}" velocity="0"/>
       <axis xyz="0 0 1"/>
+      <dynamics damping="${ptu_damping}" friction="${ptu_friction}"/>
     </joint>
 
 
-
-
-<!-- 
-    <link name="link_bogie_${position}">
+    <!-- TILT LINK -->
+    <link name="link_tilt">
       <inertial>
-        <mass value="${bogie_mass}"/>
-        <inertia
-              ixx="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
-              iyy="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
-              izz="${bogie_mass /  2.0 *  bogie_r * bogie_r}"
+        <mass value="${link_tilt_mass}"/>
+          <inertia
+              ixx="${link_tilt_mass / 12.0 * (link_tilt_y * link_tilt_z / 2)}"
+              iyy="${link_tilt_mass / 12.0 * (link_tilt_x * link_tilt_z / 2)}"
+              izz="${link_tilt_mass / 12.0 * (link_tilt_x * link_tilt_y / 2)}"
               ixy="0"
               ixz="0"
               iyz="0"/>
       </inertial>
 
       <collision>
-        <origin xyz="0 0 0" rpy="0 ${pi / 2} 0"/>
+        <origin xyz="${link_tilt_pos_x} ${link_tilt_pos_y} ${link_tilt_pos_z}" rpy="0 0 0"/>
         <geometry>
-          <xacro:insert_block name="geometry" />
+          <box size="${link_tilt_x} ${link_tilt_y} ${link_tilt_z}"/>
         </geometry>
       </collision>
-
       <visual>
-        <origin xyz="0 0 0" rpy="0 ${pi / 2} 0"/>
+        <origin xyz="${link_tilt_pos_x} ${link_tilt_pos_y} ${link_tilt_pos_z}" rpy="0 0 0"/>
         <geometry>
-          <xacro:insert_block name="geometry" />
+          <box size="${link_tilt_x} ${link_tilt_y} ${link_tilt_z}"/>
         </geometry>
       </visual>
-
     </link>
- -->
+
   </xacro:macro>
 </robot>

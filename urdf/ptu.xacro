@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="ptu" params="parent_link *origin">
+    
+    <!-- PARAMETERS -->
+    <!-- MAST LINK -->
+    <xacro:property name="mast_r" value="0.022" />
+    <xacro:property name="mast_l" value="0.6375" />
+    <xacro:property name="mast_mass" value="4.0" />
+
+    <!-- PAN JOINT -->
+    <xacro:property name="pan_lower" value="-1.57" />
+    <xacro:property name="pan_upper" value="1.57" />
+    <xacro:property name="joint_pan_z" value="${mast_l}" />
+
+    <!-- PAN LINK -->
+    <xacro:property name="link_pan_mass" value="0.1" />
+    <xacro:property name="link_pan_x" value="0.0" />
+    <xacro:property name="link_pan_y" value="0.0" />
+    <xacro:property name="link_pan_z" value="0.04" />
+    <xacro:property name="link_pan_pos_x" value="0.0" />
+    <xacro:property name="link_pan_pos_y" value="0.0" />
+    <xacro:property name="link_pan_pos_z" value="${link_pan_z}" />
+
+    <!-- TILT JOINT -->
+    <xacro:property name="tilt_lower" value="-1.57" />
+    <xacro:property name="tilt_upper" value="1.57" />
+    <xacro:property name="joint_tilt_z" value="${mast_l}" />
+
+
+
+    <!-- MAST JOINT -->
+    <joint name="ptu_base" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="mast"/>
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <!-- MAST LINK -->
+    <link name="mast">
+      <inertial>
+        <mass value="${mast_mass}"/>
+        <inertia
+          ixx="${mast_mass / 12.0 * (3 * mast_r * mast_r + mast_l * mast_l)}"
+          iyy="${mast_mass / 12.0 * (3 * mast_r * mast_r + mast_l * mast_l)}"
+          izz="${mast_mass / 2.0 * mast_r * mast_r}"
+          ixy="0"
+          ixz="0"
+          iyz="0"/>
+      </inertial>
+
+      <collision>
+        <origin xyz="0 0 ${mast_l/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${mast_l}" radius="${mast_r}"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 ${mast_l/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${mast_l}" radius="${mast_r}"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- PAN JOINT -->
+    <joint name="pan" type="revolute">
+      <parent link="mast"/>
+      <child link="link_pan"/>
+      <origin xyz="0 0 ${joint_pan_z}" rpy="0.0 0.0 0.0"/>
+      <limit effort="0" lower="${pan_lower}" upper="${pan_upper}" velocity="0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- PAN LINK -->
+    <link name="link_pan">
+      <inertial>
+        <mass value="${link_pan_mass}"/>
+          <inertia
+              ixx="${link_pan_mass / 12.0 * (link_pan_y * link_pan_z / 2)}"
+              iyy="${link_pan_mass / 12.0 * (link_pan_x * link_pan_z / 2)}"
+              izz="${link_pan_mass / 12.0 * (link_pan_x * link_pan_y / 2)}"
+              ixy="0"
+              ixz="0"
+              iyz="0"/>
+      </inertial>
+
+      <collision>
+        <origin xyz="${link_pan_pos_x} ${link_pan_pos_y} ${link_pan_pos_z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${link_pan_x} ${link_pan_y} ${link_pan_z}"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="${link_pan_pos_x} ${link_pan_pos_y} ${link_pan_pos_z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${link_pan_x} ${link_pan_y} ${link_pan_z}"/>
+        </geometry>
+      </visual>
+    </link>
+
+
+    <!-- TILT JOINT -->
+    <joint name="tilt" type="revolute">
+      <parent link="mast"/>
+      <child link="link_pan"/>
+      <origin xyz="0 0 ${mast_l}" rpy="0.0 0.0 0.0"/>
+      <limit effort="0" lower="${tilt_lower}" upper="${tilt_upper}" velocity="0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+
+
+
+<!-- 
+    <link name="link_bogie_${position}">
+      <inertial>
+        <mass value="${bogie_mass}"/>
+        <inertia
+              ixx="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
+              iyy="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
+              izz="${bogie_mass /  2.0 *  bogie_r * bogie_r}"
+              ixy="0"
+              ixz="0"
+              iyz="0"/>
+      </inertial>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 ${pi / 2} 0"/>
+        <geometry>
+          <xacro:insert_block name="geometry" />
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 ${pi / 2} 0"/>
+        <geometry>
+          <xacro:insert_block name="geometry" />
+        </geometry>
+      </visual>
+
+    </link>
+ -->
+  </xacro:macro>
+</robot>

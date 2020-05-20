@@ -26,7 +26,7 @@
 
   <!-- REAR BOGIE -->
   <!-- <xacro:property name="rear_bogie_mass" value="0.4" /> -->
-  <xacro:property name="rear_bogie_mass" value="4" />
+  <xacro:property name="rear_bogie_mass" value="4.0" />
   <xacro:property name="rear_bogie_l" value="0.5815" />
   <xacro:property name="rear_bogie_r" value="0.0125" />
   <xacro:property name="rear_bogie_pos_x" value="-0.316" />
@@ -316,6 +316,12 @@
           <cylinder length="0.104" radius="0.0255"/>
         </geometry>
       </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.104" radius="0.0255"/>
+        </geometry>
+      </collision>
     </link>
   
     <transmission name="transmission_STR_${position}">

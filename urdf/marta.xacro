@@ -116,22 +116,6 @@
     </visual>
   </link>
 
-  <!-- LIDAR SENSOR DEFINITION -->
-  <joint name="joint_lidar" type="fixed">
-    <parent link="base_link"/>
-    <child link="lidar_link"/>
-    <origin xyz="0 0  ${chassis_z}"/>
-  </joint>
-
-  <link name="lidar_link">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.1 0.1"/>
-      </geometry>
-    </visual>
-  </link>
-
   <!-- BOGIE DEFINITION -->
   <xacro:macro name="bogie" params="position bogie_mass bogie_r bogie_l dep_pos_z dep_rot_y *origin_bogie *geometry">
     <xacro:property name="bogie_link" value="link_bogie_${position}" />
@@ -416,5 +400,12 @@
     <origin xyz="-${rear_dep_pos_x} ${rear_dep_pos_y} ${rear_dep_pos_z}" rpy="0 ${3 * pi / 2} 0"/>
     <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
+
+  <!-- Sensors -->
+  <xacro:include filename="$(find rover_config)/urdf/lidar.xacro"/>
+
+  <xacro:lidar parent_link="base_link">
+    <origin xyz="0 0  ${chassis_z}"/>
+  </xacro:lidar>
 
 </robot>

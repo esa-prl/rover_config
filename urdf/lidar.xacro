@@ -5,11 +5,11 @@
     
     <joint name="joint_lidar" type="fixed">
         <parent link="${parent_link}"/>
-        <child link="lidar_link"/>
+        <child link="link_lidar"/>
         <xacro:insert_block name="origin" />
     </joint>
 
-    <link name="lidar_link">
+    <link name="link_lidar">
         <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>

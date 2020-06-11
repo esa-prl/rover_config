@@ -401,4 +401,11 @@
     <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
+  <!-- Sensors -->
+  <xacro:include filename="$(find rover_config)/urdf/lidar.xacro"/>
+
+  <xacro:lidar parent_link="base_link">
+    <origin xyz="0 0  ${chassis_z}"/>
+  </xacro:lidar>
+
 </robot>

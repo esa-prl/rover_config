@@ -43,5 +43,10 @@
         <output_type>sensor_msgs/PointCloud2</output_type>
       </plugin>
     </sensor>
+
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Gray</material>
+
   </gazebo>
 </robot>

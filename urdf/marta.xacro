@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="use_gnss" value="true" />
+
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />
   <xacro:property name="friction" value="0.1" />
@@ -407,5 +410,15 @@
   <xacro:lidar parent_link="base_link">
     <origin xyz="0 0  ${chassis_z}"/>
   </xacro:lidar>
+
+
+  <!-- GNSS -->
+  <xacro:if value="${use_gnss}"> 
+    <xacro:include filename="$(find rover_config)/urdf/gnss.xacro"/>
+
+    <xacro:gnss parent_link="base_link">
+      <origin xyz="0.0 0.15  ${chassis_z-0.02}"/>
+    </xacro:gnss>
+  </xacro:if>
 
 </robot>

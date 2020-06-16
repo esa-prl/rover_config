@@ -407,5 +407,11 @@
   <xacro:ptu parent_link="base_link">
     <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0"/>
   </xacro:ptu>
+  
+  <xacro:include filename="$(find rover_config)/urdf/vlp_16.xacro"/>
+
+  <xacro:lidar parent_link="base_link">
+    <origin xyz="0 0  ${chassis_z + 0.006}"/>
+  </xacro:lidar>
 
 </robot>

@@ -63,141 +63,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DEP_LF:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DEP_LM:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DEP_LR:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DEP_RF:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DEP_RM:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DEP_RR:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DRV_LF:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DRV_LM:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DRV_LR:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DRV_RF:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DRV_RM:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_DRV_RR:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_STR_LF:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_STR_LM:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_STR_LR:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_STR_RF:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_STR_RM:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_STR_RR:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_bogie_LFB:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_bogie_MRB:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_bogie_RFB:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_cam:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_lidar:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_mast:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_pan:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_tilt:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       TF Prefix: ""
       Update Interval: 0
@@ -208,107 +73,13 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_link:
-          Value: true
-        link_DEP_LF:
-          Value: true
-        link_DEP_LM:
-          Value: true
-        link_DEP_LR:
-          Value: true
-        link_DEP_RF:
-          Value: true
-        link_DEP_RM:
-          Value: true
-        link_DEP_RR:
-          Value: true
-        link_DRV_LF:
-          Value: true
-        link_DRV_LM:
-          Value: true
-        link_DRV_LR:
-          Value: true
-        link_DRV_RF:
-          Value: true
-        link_DRV_RM:
-          Value: true
-        link_DRV_RR:
-          Value: true
-        link_STR_LF:
-          Value: true
-        link_STR_LM:
-          Value: true
-        link_STR_LR:
-          Value: true
-        link_STR_RF:
-          Value: true
-        link_STR_RM:
-          Value: true
-        link_STR_RR:
-          Value: true
-        link_bogie_LFB:
-          Value: true
-        link_bogie_MRB:
-          Value: true
-        link_bogie_RFB:
-          Value: true
-        link_cam:
-          Value: true
-        link_lidar:
-          Value: true
-        link_mast:
-          Value: true
-        link_pan:
-          Value: true
-        link_tilt:
-          Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        map:
-          odom:
-            base_link:
-              link_bogie_LFB:
-                link_DEP_LF:
-                  link_STR_LF:
-                    link_DRV_LF:
-                      {}
-                link_DEP_LM:
-                  link_STR_LM:
-                    link_DRV_LM:
-                      {}
-              link_bogie_MRB:
-                link_DEP_LR:
-                  link_STR_LR:
-                    link_DRV_LR:
-                      {}
-                link_DEP_RR:
-                  link_STR_RR:
-                    link_DRV_RR:
-                      {}
-              link_bogie_RFB:
-                link_DEP_RF:
-                  link_STR_RF:
-                    link_DRV_RF:
-                      {}
-                link_DEP_RM:
-                  link_STR_RM:
-                    link_DRV_RM:
-                      {}
-              link_lidar:
-                {}
-              link_mast:
-                link_pan:
-                  link_tilt:
-                    link_cam:
-                      {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -370,7 +141,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /nav_cam_right/image_raw
+        Value: /loc_cam_left/image_raw
       Value: true
   Enabled: true
   Global Options:

@@ -15,42 +15,6 @@
 
   </gazebo>
   
-
-  <gazebo reference="link_cam">
-    <sensor type="camera" name="nav_cam">
-      <update_rate>30.0</update_rate>
-      <camera>
-        <pose>0.035 0 0.078 0 ${-pi/2} 0</pose>
-        <horizontal_fov>${85 * pi/180.0}</horizontal_fov>
-        <image>
-          <format>R8G8B8</format>
-          <width>1020</width>
-          <height>1020</height>
-        </image>
-        <clip>
-          <near>0.01</near>
-          <far>100</far>
-        </clip>
-      </camera>
-
-      <plugin name="camera_camera_controller" filename="libgazebo_ros_camera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
-        <cameraName>nav_cam</cameraName>
-        <imageTopicName>image_raw</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>link_cam</frameName>
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>0.0</distortionK1>
-        <distortionK2>0.0</distortionK2>
-        <distortionK3>0.0</distortionK3>
-        <distortionT1>0.0</distortionT1>
-        <distortionT2>0.0</distortionT2>
-      </plugin>
-    </sensor>
-  </gazebo>
-
-
   <!-- LINKS -->
   <gazebo reference="link_mast">
     <mu1>0.2</mu1>
@@ -68,12 +32,6 @@
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
     <material>Gazebo/Black</material>
-  </gazebo>
-
-  <gazebo reference="link_cam">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/Gold</material>
   </gazebo>
 
 </robot>

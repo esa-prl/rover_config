@@ -3,7 +3,7 @@
   
   <gazebo>
     <plugin name="rover_gazebo_joint_plugin" filename="librover_gazebo_joint_plugin.so">
-<!--       <ros>
+<!--  <ros>
         <namespace>/marta</namespace>
       </ros>
  -->  
@@ -55,9 +55,6 @@
       <joint_name>joint_STR_RM</joint_name>
       <joint_name>joint_STR_LR</joint_name>
       <joint_name>joint_STR_RR</joint_name>
-<!--       <joint_name>ptu_base</joint_name>
-      <joint_name>joint_STR_pan</joint_name>
-      <joint_name>joint_STR_tilt</joint_name> -->
     </plugin>
   </gazebo>
 

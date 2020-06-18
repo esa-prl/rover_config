@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
   <xacro:macro name="ptu" params="parent_link *origin">
+
+    <xacro:include filename="$(find rover_config)/urdf/ptu.gazebo" />
+
     <!-- PHYSICS -->
     <xacro:property name="ptu_damping" value="2" />
     <xacro:property name="ptu_friction" value="0.1" />
@@ -43,18 +46,7 @@
 
     <!-- CAM JOINT -->
     <xacro:property name="joint_cam_pos_y" value="0.036" />
-    <xacro:property name="joint_cam_rot_x" value="${pi/2}" />
-
-    <!-- CAM LINK -->
-    <xacro:property name="link_cam_mass" value="1.0" />
-    <xacro:property name="link_cam_x" value="0.0474" />
-    <xacro:property name="link_cam_y" value="0.157" />
-    <xacro:property name="link_cam_z" value="0.036" />
-    <xacro:property name="link_cam_rot_r" value="${-pi/2}" />
-    <xacro:property name="link_cam_pos_x" value="0.0" />
-    <xacro:property name="link_cam_pos_y" value="0.01625" />
-    <xacro:property name="link_cam_pos_z" value="0.0" />
-
+    <xacro:property name="joint_cam_rot_r" value="${-pi/2}" />
 
     <!-- MAST JOINT -->
     <joint name="ptu_base" type="fixed">
@@ -139,10 +131,7 @@
           <cylinder length="0.06" radius="0.011"/>
         </geometry>
       </collision>
-
-
     </link>
-
 
     <!-- TILT JOINT -->
     <joint name="joint_TLT" type="fixed">
@@ -182,46 +171,11 @@
       </visual>
     </link>
 
+    <xacro:include filename="$(find rover_config)/urdf/bb2.xacro" />
 
-    <!-- CAMERA -->
-    <joint name="camera_joint" type="fixed">
-        <parent link="link_tilt"/>
-        <child link="link_cam"/>
-        <origin rpy="${link_cam_rot_r} 0 0" xyz="0.0 ${joint_cam_pos_y} 0.0"/>
-        <axis xyz="1 0 0" />
-    </joint>
-
-    <!-- CAMERA LINK -->
-    <link name="link_cam">
-      <inertial>
-        <mass value="${link_cam_mass}"/>
-          <inertia
-              ixx="${link_cam_mass / 12.0 * (link_cam_y * link_cam_z / 2)}"
-              iyy="${link_cam_mass / 12.0 * (link_cam_x * link_cam_z / 2)}"
-              izz="${link_cam_mass / 12.0 * (link_cam_x * link_cam_y / 2)}"
-              ixy="0"
-              ixz="0"
-              iyz="0"/>
-      </inertial>
-
-      <collision>
-        <origin xyz="${link_cam_pos_x} ${link_cam_pos_y} ${link_cam_pos_z}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${link_cam_x} ${link_cam_y} ${link_cam_z}"/>
-        </geometry>
-      </collision>
-      <visual>
-        <origin xyz="${link_cam_pos_x} ${link_cam_pos_y} ${link_cam_pos_z}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${link_cam_x} ${link_cam_y} ${link_cam_z}"/>
-        </geometry>
-      </visual>
-    </link>
-
-
-    <xacro:include filename="$(find rover_config)/urdf/ptu.gazebo" />
-
-
+    <xacro:bb2 name="nav_cam" parent_link="link_tilt">
+        <origin rpy="${joint_cam_rot_r} 0 0" xyz="0.0 ${joint_cam_pos_y} 0.0"/>
+    </xacro:bb2>
 
   </xacro:macro>
 </robot>

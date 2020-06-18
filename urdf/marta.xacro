@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="use_ptu" value="true" /> 
+  <xacro:property name="use_loc_cam" value="true" /> 
+
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />
   <xacro:property name="friction" value="0.1" />
@@ -401,13 +405,26 @@
     <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-  <!-- Sensors -->
-  <xacro:include filename="$(find rover_config)/urdf/ptu.xacro" />
 
-  <xacro:ptu parent_link="base_link">
-    <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0"/>
-  </xacro:ptu>
-  
+  <!-- Sensors -->
+  <!-- PTU w/ Navigation Cam-->
+  <xacro:if value="${use_ptu}">
+    <xacro:include filename="$(find rover_config)/urdf/ptu.xacro" />
+
+    <xacro:ptu parent_link="base_link">
+      <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:ptu>
+  </xacro:if>
+
+  <!-- Localization Cam -->
+  <xacro:if value="${use_loc_cam}">
+    <xacro:include filename="$(find rover_config)/urdf/bb2.xacro" />
+
+    <xacro:bb2 name="loc_cam" parent_link="base_link">
+        <origin rpy="0 ${pi/6} 0" xyz="${chassis_x/2} 0.0 ${chassis_z/2 + 0.2}"/>
+    </xacro:bb2>
+  </xacro:if>
+
   <xacro:include filename="$(find rover_config)/urdf/vlp_16.xacro"/>
 
   <xacro:lidar parent_link="base_link">

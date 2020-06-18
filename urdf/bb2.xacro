@@ -3,7 +3,7 @@
   <xacro:macro name="bb2" params="name parent_link *origin_cam">
     <xacro:include filename="$(find rover_config)/urdf/bb2.gazebo" />
 
-    <xacro:sensors cam_name="${name}" />
+    <xacro:sensors cam_name="${name}"/>
 
     <!-- PARAMETERS -->
     <xacro:property name="link_cam_mass" value="1.0" />
@@ -16,15 +16,15 @@
     <xacro:property name="link_cam_pos_z" value="0.0" />
 
     <!-- CAMERA JOINT-->
-    <joint name="camera_joint" type="fixed">
+    <joint name="joint_${name}" type="fixed">
         <parent link="${parent_link}"/>
-        <child link="link_cam"/>
+        <child link="link_${name}"/>
         <xacro:insert_block name="origin_cam" />
         <axis xyz="1 0 0" />
     </joint>
 
     <!-- CAMERA LINK -->
-    <link name="link_cam">
+    <link name="link_${name}">
       <inertial>
         <mass value="${link_cam_mass}"/>
           <inertia

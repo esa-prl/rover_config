@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="bb2_sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="sensors" params="cam_name">
-    <gazebo reference="link_cam">
+    <gazebo reference="link_${cam_name}">
       <!-- Specs from https://www.upc.edu/sct/ca/documents_equipament/d_186_id-488.pdf -->
       <xacro:property name="baseline" value="0.12" />
 
@@ -28,7 +28,7 @@
             <cameraName>${camera_name}</cameraName>
             <imageTopicName>image_raw</imageTopicName>
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-            <frameName>link_cam</frameName>
+            <frameName>link_${camera_name}</frameName>
             <hackBaseline>0.07</hackBaseline>
             <distortionK1>0.0</distortionK1>
             <distortionK2>0.0</distortionK2>
@@ -39,11 +39,9 @@
         </sensor>
       </xacro:macro>
 
-      <xacro:bb2_sensor camera_name="${cam_name}" sensor_name="left" pos_y="${baseline/2}">
-      </xacro:bb2_sensor>
+      <xacro:bb2_sensor camera_name="${cam_name}" sensor_name="left" pos_y="${baseline/2}"/>
 
-      <xacro:bb2_sensor camera_name="${cam_name}" sensor_name="right" pos_y="${-baseline/2}">
-      </xacro:bb2_sensor>
+      <xacro:bb2_sensor camera_name="${cam_name}" sensor_name="right" pos_y="${-baseline/2}"/>
 
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>

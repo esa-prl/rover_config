@@ -8,8 +8,8 @@
         <remapping>joint_states:=joint_states</remapping>
       </ros>
       <update_rate>100</update_rate>
-      <joint_name>joint_STR_pan</joint_name>
-      <joint_name>joint_STR_tilt</joint_name>
+      <joint_name>joint_pan</joint_name>
+      <joint_name>joint_tilt</joint_name>
       <joint_name>ptu_base</joint_name>
     </plugin>
 

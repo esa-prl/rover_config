@@ -6,7 +6,7 @@
       <xacro:property name="baseline" value="0.12" />
 
       <xacro:macro name="bb2_sensor" params="camera_name sensor_name pos_y">
-        <sensor type="camera" name="${camera_name}_${sensor_name}">
+        <sensor type="camera" name="${camera_name}/${sensor_name}">
           <update_rate>30.0</update_rate>
           <camera>
             <pose>0.0 ${pos_y} 0.0 0 0 0</pose>
@@ -29,7 +29,7 @@
             <imageTopicName>image_raw</imageTopicName>
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
             <frameName>link_${camera_name}</frameName>
-            <hackBaseline>0.07</hackBaseline>
+            <hackBaseline>${2*pos_y}</hackBaseline>
             <distortionK1>0.0</distortionK1>
             <distortionK2>0.0</distortionK2>
             <distortionK3>0.0</distortionK3>

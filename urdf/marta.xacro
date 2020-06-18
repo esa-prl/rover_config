@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- SENSOR CONFIGURATION -->
+  <xacro:property name="use_lidar" value="true" />
+  <xacro:property name="use_imu" value="true" />
   <xacro:property name="use_gnss" value="true" />
+
 
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />
@@ -405,11 +409,23 @@
   </xacro:wheel_assembly>
 
   <!-- Sensors -->
-  <xacro:include filename="$(find rover_config)/urdf/vlp_16.xacro"/>
+  <!-- LIDAR -->
+  <xacro:if value="${use_lidar}">
+    <xacro:include filename="$(find rover_config)/urdf/vlp_16.xacro"/>
 
-  <xacro:lidar parent_link="base_link">
-    <origin xyz="0 0  ${chassis_z + 0.006}"/>
-  </xacro:lidar>
+    <xacro:lidar parent_link="base_link">
+      <origin xyz="0 0  ${chassis_z + 0.006}"/>
+    </xacro:lidar>
+  </xacro:if>
+
+  <!-- IMU -->
+  <xacro:if value="${use_imu}">
+    <xacro:include filename="$(find rover_config)/urdf/stim300.xacro"/>
+
+    <xacro:imu parent_link="base_link">
+      <origin xyz="0.09 0  0"/>
+    </xacro:imu>
+  </xacro:if>
 
 
   <!-- GNSS -->

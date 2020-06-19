@@ -2,16 +2,32 @@
 <robot name="ptu" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <gazebo>
 
-	<plugin name="gazebo_ros_joint_state_publisher"
-        filename="libgazebo_ros_joint_state_publisher.so">
-      <ros>
-        <remapping>joint_states:=joint_states</remapping>
+    <plugin name="rover_gazebo_joint_plugin" filename="librover_gazebo_joint_plugin.so">
+<!--  <ros>
+        <namespace>/marta</namespace>
       </ros>
-      <update_rate>100</update_rate>
-      <joint_name>joint_pan</joint_name>
-      <joint_name>joint_tilt</joint_name>
-      <joint_name>ptu_base</joint_name>
+ -->  
+      <update_rate>100.0</update_rate>
+      <position_pids>
+        <pan>20.0 0.1 0.0</pan>
+        <tilt>20.0 0.1 0.0</tilt>
+      </position_pids>
+      <velocity_pids>
+        <pan>5.0 0.1 0.0</pan>
+        <tilt>5.0 0.1 0.0</tilt>
+      </velocity_pids>
     </plugin>
+
+  	<plugin name="gazebo_ros_joint_state_publisher"
+          filename="libgazebo_ros_joint_state_publisher.so">
+        <ros>
+          <remapping>joint_states:=joint_states</remapping>
+        </ros>
+        <update_rate>100</update_rate>
+        <joint_name>joint_pan</joint_name>
+        <joint_name>joint_tilt</joint_name>
+        <joint_name>ptu_base</joint_name>
+      </plugin>
 
   </gazebo>
   

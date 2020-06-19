@@ -8,10 +8,13 @@
       </ros>
  -->  
       <update_rate>100.0</update_rate>
-      <joint_types></joint_types>
-      <pid_deploy>350.0 0.1 0.0</pid_deploy>
-      <pid_steer>20.0 0.1 0.0</pid_steer>
-      <pid_drive>5.0 0.1 0.0</pid_drive>
+      <position_pids>
+        <DEP>350.0 0.1 0.0</DEP>
+        <STR>20.0 0.1 0.0</STR>
+      </position_pids>
+      <velocity_pids>
+        <DRV>5.0 0.1 0.0</DRV>
+      </velocity_pids>
     </plugin>
 
     <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">

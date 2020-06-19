@@ -8,7 +8,7 @@ class Parser : public rclcpp::Node
 {
 public:
   Parser()
-  : Node("parser"), joints_(), model_(new urdf::Model())
+  : Node("parser"), model_(new urdf::Model()), joints_()
   {
       
     std::string urdf_file = "model.xml";

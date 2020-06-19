@@ -2,7 +2,8 @@ gamepad_parser_node:
     ros__parameters:
         use_sim_time: True
         deadzone: 0.3
-        continuous_data_streaming: False
+        continuous_data_streaming_locomotion: False
+        continuous_data_streaming_ptu: True
 
 joy_node:
     ros__parameters:
@@ -22,6 +23,13 @@ locomotion_manager_node:
     ros__parameters:
         use_sim_time: True
         locomotion_modes: ["simple_rover_locomotion_node", "wheel_walking_node", "stop_mode_node"]
+
+ptu_control_node:
+    ros__parameters:
+        use_sim_time: True
+        robot_description: ''
+        pan_joint_identifier: 'PAN'
+        tilt_joint_identifier: 'TLT'
 
 robot_state_publisher_node:
     ros__parameters:

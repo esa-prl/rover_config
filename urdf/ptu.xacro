@@ -8,6 +8,10 @@
     <xacro:property name="ptu_damping" value="2" />
     <xacro:property name="ptu_friction" value="0.1" />
 
+    <xacro:property name="max_effort" value="1000.0" />
+    <xacro:property name="max_velocity" value="1.0" />
+
+
     <!-- PARAMETERS -->
     <!-- MAST LINK -->
     <xacro:property name="mast_r" value="0.011" />
@@ -20,7 +24,8 @@
     <xacro:property name="joint_pan_pos_z" value="${mast_l}" />
 
     <!-- PAN LINK -->
-    <xacro:property name="link_pan_mass" value="0.1" />
+    <!-- <xacro:property name="link_pan_mass" value="0.1" /> -->
+    <xacro:property name="link_pan_mass" value="5" />
     <xacro:property name="link_pan_x" value="0.05" />
     <xacro:property name="link_pan_y" value="0.025" />
     <xacro:property name="link_pan_z" value="0.025" />
@@ -35,7 +40,7 @@
     <xacro:property name="joint_tilt_rot_x" value="${pi/2}" />
 
     <!-- TILT LINK -->
-    <xacro:property name="link_tilt_mass" value="1.0" />
+    <xacro:property name="link_tilt_mass" value="5.0" />
     <xacro:property name="link_tilt_x" value="0.022" />
     <xacro:property name="link_tilt_y" value="0.0035" />
     <xacro:property name="link_tilt_z" value="0.072" />
@@ -83,11 +88,11 @@
     </link>
 
     <!-- PAN JOINT -->
-    <joint name="joint_PAN" type="fixed">
+    <joint name="joint_PAN" type="revolute">
       <parent link="link_mast"/>
       <child link="link_pan"/>
       <origin xyz="0 0 ${joint_pan_pos_z}" rpy="0.0 0.0 0.0"/>
-      <limit effort="0" lower="${pan_lower}" upper="${pan_upper}" velocity="0"/>
+      <limit effort="${max_effort}" lower="${pan_lower}" upper="${pan_upper}" velocity="${max_velocity}"/>
       <axis xyz="0 0 1"/>
       <dynamics damping="${ptu_damping}" friction="${ptu_friction}"/>
     </joint>
@@ -134,11 +139,11 @@
     </link>
 
     <!-- TILT JOINT -->
-    <joint name="joint_TLT" type="fixed">
+    <joint name="joint_TLT" type="revolute">
       <parent link="link_pan"/>
       <child link="link_tilt"/>
       <origin xyz="0 0 ${joint_tilt_pos_z}" rpy="${joint_tilt_rot_x} 0.0 0.0"/>
-      <limit effort="0" lower="${tilt_lower}" upper="${tilt_upper}" velocity="0"/>
+      <limit effort="${max_effort}" lower="${tilt_lower}" upper="${tilt_upper}" velocity="${max_velocity}"/>
       <axis xyz="0 0 1"/>
       <dynamics damping="${ptu_damping}" friction="${ptu_friction}"/>
     </joint>

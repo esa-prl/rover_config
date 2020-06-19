@@ -5,8 +5,8 @@
   <xacro:property name="use_lidar" value="false" />
   <xacro:property name="use_imu" value="false" />
   <xacro:property name="use_gnss" value="false" />
-  <xacro:property name="use_ptu" value="false" /> 
-  <xacro:property name="use_loc_cam" value="true" /> 
+  <xacro:property name="use_ptu" value="true" /> 
+  <xacro:property name="use_loc_cam" value="false" /> 
 
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />

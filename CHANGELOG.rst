@@ -4,13 +4,7 @@ Changelog for package simple_rover_locomotion
 
 TODO
 ----
-<<<<<<< HEAD
 * add PTU joint coordinates into .SLDPRT
-* make seperate BB2 and BB3 .xacro and .gazebo files.
-* make camera work
-=======
-* add GPS
->>>>>>> master
 
 NICE TO HAVE
 ------------
@@ -18,15 +12,17 @@ NICE TO HAVE
 
 KNOWN BUGS
 ----------
+* visualizing the cameras in gazebo shows the wrong position and FoV
 
 0.0.1 (unreleased)
 ------------------
+* make seperate BB2 .xacro and .gazebo files.
+* added LocCam
+* Add PTU and NavCam
+* added GPS
 * added martas correct dimensions
-<<<<<<< HEAD
-=======
 * added LiDAR
 * added IMU
->>>>>>> master
 * made model with MaRTA locomotion configuration
 * define coordinate frames and axis
 * added side bogies to rover_dummy

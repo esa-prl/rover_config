@@ -2,10 +2,10 @@
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- SENSOR CONFIGURATION -->
-  <xacro:property name="use_lidar" value="true" />
-  <xacro:property name="use_imu" value="true" />
-  <xacro:property name="use_gnss" value="true" />
-  <xacro:property name="use_ptu" value="true" /> 
+  <xacro:property name="use_lidar" value="false" />
+  <xacro:property name="use_imu" value="false" />
+  <xacro:property name="use_gnss" value="false" />
+  <xacro:property name="use_ptu" value="false" /> 
   <xacro:property name="use_loc_cam" value="true" /> 
 
   <!-- PHYSICS -->

@@ -4,11 +4,10 @@
     <gazebo reference="link_${cam_name}">
       <!-- Specs from https://www.upc.edu/sct/ca/documents_equipament/d_186_id-488.pdf -->
       <xacro:property name="baseline" value="0.12" />
-      <!-- <xacro:property name="baseline" value="3" /> -->
 
       <xacro:macro name="bb2_sensor" params="camera_name sensor_name pos_y">
         <sensor type="camera" name="${camera_name}/${sensor_name}">
-          <update_rate>30.0</update_rate>
+          <update_rate>20.0</update_rate>
           <visualize>true</visualize>
 
           <camera>

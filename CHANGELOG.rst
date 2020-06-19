@@ -5,6 +5,7 @@ Changelog for package simple_rover_locomotion
 TODO
 ----
 * add PTU joint coordinates into .SLDPRT
+* move cameras to center of rover
 
 NICE TO HAVE
 ------------

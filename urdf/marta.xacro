@@ -2,11 +2,18 @@
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- SENSOR CONFIGURATION -->
-  <xacro:property name="use_lidar"    value="true" />
-  <xacro:property name="use_imu"      value="true" />
-  <xacro:property name="use_gnss"     value="true" />
-  <xacro:property name="use_ptu"      value="true" /> 
-  <xacro:property name="use_loc_cam"  value="true" /> 
+  <xacro:arg name="use_lidar"    default="true" />
+  <xacro:arg name="use_imu"      default="true" />
+  <xacro:arg name="use_gnss"     default="true" />
+  <xacro:arg name="use_ptu"      default="true" /> 
+  <xacro:arg name="use_loc_cam"  default="true" /> 
+
+  <xacro:property name="use_lidar"    value="$(arg use_lidar)" />
+  <xacro:property name="use_imu"      value="$(arg use_imu)" />
+  <xacro:property name="use_gnss"     value="$(arg use_gnss)" />
+  <xacro:property name="use_ptu"      value="$(arg use_ptu)" /> 
+  <xacro:property name="use_loc_cam"  value="$(arg use_loc_cam)" /> 
+
 
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />
@@ -416,7 +423,7 @@
     <xacro:include filename="$(find rover_config)/urdf/ptu.xacro" />
 
     <xacro:ptu parent_link="base_link">
-      <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.187 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </xacro:ptu>
   </xacro:if>
 

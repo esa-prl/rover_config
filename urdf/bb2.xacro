@@ -11,9 +11,9 @@
     <xacro:property name="link_cam_y" value="0.157" />
     <xacro:property name="link_cam_z" value="0.036" />
     <xacro:property name="link_cam_rot_r" value="${-pi/2}" />
-    <xacro:property name="link_cam_pos_x" value="0.0" />
-    <xacro:property name="link_cam_pos_y" value="0.01625" />
-    <xacro:property name="link_cam_pos_z" value="0.0" />
+    <xacro:property name="link_cam_pos_x" value="-0.0034" />
+    <xacro:property name="link_cam_pos_y" value="0.0" />
+    <xacro:property name="link_cam_pos_z" value="${link_cam_z/2}" />
 
     <!-- CAMERA JOINT-->
     <joint name="joint_${name}" type="fixed">

@@ -11,7 +11,6 @@
     <xacro:property name="max_effort" value="1000.0" />
     <xacro:property name="max_velocity" value="1.0" />
 
-
     <!-- PARAMETERS -->
     <!-- MAST LINK -->
     <xacro:property name="mast_r" value="0.011" />
@@ -36,7 +35,8 @@
     <!-- TILT JOINT -->
     <xacro:property name="tilt_lower" value="-1.57" />
     <xacro:property name="tilt_upper" value="1.57" />
-    <xacro:property name="joint_tilt_pos_z" value="0.0265" />
+    <xacro:property name="joint_tilt_pos_y" value="-0.0095" />
+    <xacro:property name="joint_tilt_pos_z" value="0.0295" />
     <xacro:property name="joint_tilt_rot_x" value="${pi/2}" />
 
     <!-- TILT LINK -->
@@ -45,12 +45,12 @@
     <xacro:property name="link_tilt_y" value="0.0035" />
     <xacro:property name="link_tilt_z" value="0.072" />
     <xacro:property name="link_tilt_pos_x" value="0.0" />
-    <xacro:property name="link_tilt_pos_y" value="0.01625" />
-    <xacro:property name="link_tilt_pos_z" value="0.0" />
-
+    <xacro:property name="link_tilt_pos_y" value="${0.01625 - link_tilt_y}" />
+    <xacro:property name="link_tilt_pos_z" value="${joint_tilt_pos_y}" />
 
     <!-- CAM JOINT -->
-    <xacro:property name="joint_cam_pos_y" value="0.036" />
+    <xacro:property name="joint_cam_pos_y" value="0.015" />
+    <xacro:property name="joint_cam_pos_z" value="${joint_tilt_pos_y}" />
     <xacro:property name="joint_cam_rot_r" value="${-pi/2}" />
 
     <!-- MAST JOINT -->
@@ -100,6 +100,7 @@
     <!-- PAN LINK -->
     <link name="link_pan">
       <inertial>
+
         <mass value="${link_pan_mass}"/>
           <inertia
               ixx="${link_pan_mass / 12.0 * (link_pan_y * link_pan_z / 2)}"
@@ -143,7 +144,7 @@
     <joint name="joint_TLT" type="revolute">
       <parent link="link_pan"/>
       <child link="link_tilt"/>
-      <origin xyz="0 0 ${joint_tilt_pos_z}" rpy="${joint_tilt_rot_x} 0.0 0.0"/>
+      <origin xyz="0.0 ${joint_tilt_pos_y} ${joint_tilt_pos_z}" rpy="${joint_tilt_rot_x} 0.0 0.0"/>
       <limit effort="${max_effort}" lower="${tilt_lower}" upper="${tilt_upper}" velocity="${max_velocity}"/>
       <axis xyz="0 0 1"/>
       <dynamics damping="${ptu_damping}" friction="${ptu_friction}"/>
@@ -185,7 +186,7 @@
     <xacro:include filename="$(find rover_config)/urdf/bb2.xacro" />
 
     <xacro:bb2 name="nav_cam" parent_link="link_tilt">
-        <origin rpy="${joint_cam_rot_r} 0 0" xyz="0.0 ${joint_cam_pos_y} 0.0"/>
+        <origin rpy="${joint_cam_rot_r} 0 0" xyz="0.0 ${joint_cam_pos_y} ${joint_cam_pos_z}"/>
     </xacro:bb2>
 
   </xacro:macro>

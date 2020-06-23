@@ -2,11 +2,11 @@
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- SENSOR CONFIGURATION -->
-  <xacro:property name="use_lidar" value="false" />
-  <xacro:property name="use_imu" value="false" />
-  <xacro:property name="use_gnss" value="false" />
-  <xacro:property name="use_ptu" value="true" /> 
-  <xacro:property name="use_loc_cam" value="false" /> 
+  <xacro:property name="use_lidar"    value="true" />
+  <xacro:property name="use_imu"      value="true" />
+  <xacro:property name="use_gnss"     value="true" />
+  <xacro:property name="use_ptu"      value="true" /> 
+  <xacro:property name="use_loc_cam"  value="true" /> 
 
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />
@@ -140,9 +140,9 @@
       <inertial>
         <mass value="${bogie_mass}"/>
         <inertia
-              ixx="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
+              ixx="${bogie_mass /  2.0 *  bogie_r * bogie_r}"
               iyy="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
-              izz="${bogie_mass /  2.0 *  bogie_r * bogie_r}"
+              izz="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
               ixy="0"
               ixz="0"
               iyz="0"/>

@@ -40,7 +40,7 @@
     <xacro:property name="joint_tilt_rot_x" value="${pi/2}" />
 
     <!-- TILT LINK -->
-    <xacro:property name="link_tilt_mass" value="5.0" />
+    <xacro:property name="link_tilt_mass" value="0.1" />
     <xacro:property name="link_tilt_x" value="0.022" />
     <xacro:property name="link_tilt_y" value="0.0035" />
     <xacro:property name="link_tilt_z" value="0.072" />
@@ -72,7 +72,7 @@
           ixz="0"
           iyz="0"/>
       </inertial>
-
+      
       <collision>
         <origin xyz="0 0 ${mast_l/2}" rpy="0 0 0"/>
         <geometry>
@@ -109,6 +109,7 @@
               ixz="0"
               iyz="0"/>
       </inertial>
+
 
       <collision>
         <origin xyz="${link_pan_pos_x} ${link_pan_pos_y} ${link_pan_pos_z}" rpy="0 0 0"/>
@@ -152,15 +153,20 @@
     <!-- TILT LINK -->
     <link name="link_tilt">
       <inertial>
+    
         <mass value="${link_tilt_mass}"/>
-          <inertia
+        <!-- TODO: Real inertia value causes model to become unstable. A different physics engine might help. -->
+<!--           <inertia
               ixx="${link_tilt_mass / 12.0 * (link_tilt_y * link_tilt_z / 2)}"
               iyy="${link_tilt_mass / 12.0 * (link_tilt_x * link_tilt_z / 2)}"
               izz="${link_tilt_mass / 12.0 * (link_tilt_x * link_tilt_y / 2)}"
               ixy="0"
               ixz="0"
               iyz="0"/>
-      </inertial>
+-->
+           <inertia ixx="0.02" ixy="0" ixz="0" iyy="0.04" iyz="0" izz="0.04"/>
+        </inertial>
+
 
       <collision>
         <origin xyz="${link_tilt_pos_x} ${link_tilt_pos_y} ${link_tilt_pos_z}" rpy="0 0 0"/>

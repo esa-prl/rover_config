@@ -9,12 +9,10 @@
  -->  
       <update_rate>100.0</update_rate>
       <position_pids>
-        <!-- <pan>20.0 0.1 0.0</pan> -->
-        <!-- <tilt>20.0 0.1 0.0</tilt> -->
       </position_pids>
       <velocity_pids>
-        <PAN>350.0 0.1 0.0</PAN>
-        <TLT>350.0 0.1 0.0</TLT>
+        <PAN>50.0 0.1 0.0</PAN>
+        <TLT>50.0 0.1 0.0</TLT>
       </velocity_pids>
     </plugin>
 
@@ -26,7 +24,6 @@
         <update_rate>100</update_rate>
         <joint_name>joint_PAN</joint_name>
         <joint_name>joint_TLT</joint_name>
-        <!-- <joint_name>ptu_base</joint_name> -->
       </plugin>
 
   </gazebo>

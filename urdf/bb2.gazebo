@@ -8,7 +8,7 @@
       <xacro:macro name="bb2_sensor" params="camera_name sensor_name pos_y">
         <sensor type="camera" name="${camera_name}/${sensor_name}">
           <update_rate>20.0</update_rate>
-          <visualize>true</visualize>
+          <visualize>false</visualize>
 
           <camera>
             <pose>0.0 ${pos_y} 0.0 0 0 0</pose>

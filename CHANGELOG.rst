@@ -4,8 +4,6 @@ Changelog for package simple_rover_locomotion
 
 TODO
 ----
-* add PTU joint coordinates into .SLDPRT
-* move cameras to center of rover
 
 NICE TO HAVE
 ------------
@@ -17,6 +15,8 @@ KNOWN BUGS
 
 0.0.1 (unreleased)
 ------------------
+* added PTU joint coordinates into .SLDPRT
+* moved cameras to center of rover
 * make seperate BB2 .xacro and .gazebo files.
 * added LocCam
 * Add PTU and NavCam

@@ -16,11 +16,6 @@ Maintainer: Miro Voellmy, miro.voellmy@esa.com**
 
 The Rover Config package has been tested under [ROS2] Eloquent and Ubuntu 18.04. This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
 
-
-![Example image](doc/example.jpg)
-
-
-
 ## Installation
 
 

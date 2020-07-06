@@ -15,11 +15,11 @@ KNOWN BUGS
 
 0.0.1 (unreleased)
 ------------------
-* added PTU joint coordinates into .SLDPRT
+* added PTU joint coordinate systems into solidworks models on the lab server.
 * moved cameras to center of rover
 * make seperate BB2 .xacro and .gazebo files.
 * added LocCam
-* Add PTU and NavCam
+* add PTU and NavCam
 * added GPS
 * added martas correct dimensions
 * added LiDAR

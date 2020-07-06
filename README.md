@@ -80,7 +80,7 @@ The following files can be found in *'urdf/'*:
 
 * **ptu.\*** Model description of the small PTU found on ExoTeR and MaRTA.
 
-* **bb2.\*** Model description of Bumblebee2 camera. Used for navigation and localization camera on MaRTA, ExoTeR and HDPR.
+* **bb2.\*** Model description of Bumblebee2 camera. Used as navigation and localization camera on MaRTA, ExoTeR and HDPR.
 
 * **vlp_16.\*** VLP-16 (Puck) Velodyne LiDAR sensor.
 

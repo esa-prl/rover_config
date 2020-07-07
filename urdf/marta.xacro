@@ -2,9 +2,17 @@
 <robot name="marta" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- SENSOR CONFIGURATION -->
-  <xacro:property name="use_lidar" value="true" />
-  <xacro:property name="use_imu" value="true" />
-  <xacro:property name="use_gnss" value="true" />
+  <xacro:arg name="use_lidar"    default="true" />
+  <xacro:arg name="use_imu"      default="true" />
+  <xacro:arg name="use_gnss"     default="true" />
+  <xacro:arg name="use_ptu"      default="true" /> 
+  <xacro:arg name="use_loc_cam"  default="true" /> 
+
+  <xacro:property name="use_lidar"    value="$(arg use_lidar)" />
+  <xacro:property name="use_imu"      value="$(arg use_imu)" />
+  <xacro:property name="use_gnss"     value="$(arg use_gnss)" />
+  <xacro:property name="use_ptu"      value="$(arg use_ptu)" /> 
+  <xacro:property name="use_loc_cam"  value="$(arg use_loc_cam)" /> 
 
 
   <!-- PHYSICS -->
@@ -139,9 +147,9 @@
       <inertial>
         <mass value="${bogie_mass}"/>
         <inertia
-              ixx="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
+              ixx="${bogie_mass /  2.0 *  bogie_r * bogie_r}"
               iyy="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
-              izz="${bogie_mass /  2.0 *  bogie_r * bogie_r}"
+              izz="${bogie_mass / 12.0 * (3 * bogie_r * bogie_r + bogie_l * bogie_l)}"
               ixy="0"
               ixz="0"
               iyz="0"/>
@@ -408,7 +416,28 @@
     <origin xyz="${str_pos_short_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
+
   <!-- Sensors -->
+  <!-- PTU w/ Navigation Cam-->
+  <xacro:if value="${use_ptu}">
+    <xacro:include filename="$(find rover_config)/urdf/ptu.xacro" />
+
+    <xacro:ptu parent_link="base_link">
+      <origin xyz="0.187 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:ptu>
+  </xacro:if>
+
+  <!-- Localization Cam -->
+  <xacro:if value="${use_loc_cam}">
+    <xacro:include filename="$(find rover_config)/urdf/bb2.xacro" />
+
+    <xacro:bb2 name="loc_cam" parent_link="base_link">
+        <origin rpy="0 ${pi/6} 0" xyz="${chassis_x/2} 0.0 ${chassis_z/2 + 0.2}"/>
+    </xacro:bb2>
+  </xacro:if>
+
+  <xacro:include filename="$(find rover_config)/urdf/vlp_16.xacro"/>
+
   <!-- LIDAR -->
   <xacro:if value="${use_lidar}">
     <xacro:include filename="$(find rover_config)/urdf/vlp_16.xacro"/>

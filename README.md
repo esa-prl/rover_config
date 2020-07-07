@@ -12,7 +12,7 @@ The source code is released under a [TODO: Add License]().
 
 **Author: Miro Voellmy<br />
 Affiliation: [European Space Agency](https://www.esa.int/)<br />
-Maintainer: Miro Voellmy, miro.voellmy@esa.com**
+Maintainer: Miro Voellmy, miro.voellmy@esa.int**
 
 The Rover Config package has been tested under [ROS2] Eloquent and Ubuntu 18.04. This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
 
@@ -53,11 +53,15 @@ To build from source, clone the latest version from this repository into your ro
 ## rviz
 Contains .rviz files that can be loaded to visualize different rovers in Rviz
 
-* **nav2_default_view.rviz** To be loaded with the nav2 stack
+* **gamepad_sim.rviz** To be used with the gamepad simulation.
+
+* **nav2_default_view.rviz** To be loaded with the nav2 stack.
 
 * **rover_gazebo.rviz** Visualizes the rover fully in rviz. Including its position in space.
 
 * **simple_sim.rviz** To be used if no position information is provided. Rover is positioned at (0, 0, 0)
+
+
 
 ## urdf
 
@@ -75,6 +79,10 @@ The following files can be found in *'urdf/'*:
 * **marta.\*** Model description of MaRTA.
 
 * **ptu.\*** Model description of the small PTU found on ExoTeR and MaRTA.
+
+* **bb2.\*** Model description of Bumblebee2 camera. Used as navigation and localization camera on MaRTA, ExoTeR and HDPR.
+
+* **vlp_16.\*** VLP-16 (Puck) Velodyne LiDAR sensor.
 
 ## Bugs & Feature Requests
 

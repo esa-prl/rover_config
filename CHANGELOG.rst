@@ -4,7 +4,6 @@ Changelog for package simple_rover_locomotion
 
 TODO
 ----
-* add GPS
 
 NICE TO HAVE
 ------------
@@ -12,9 +11,16 @@ NICE TO HAVE
 
 KNOWN BUGS
 ----------
+* visualizing the cameras in gazebo shows the wrong position and FoV
 
 0.0.1 (unreleased)
 ------------------
+* added PTU joint coordinate systems into solidworks models on the lab server.
+* moved cameras to center of rover
+* make seperate BB2 .xacro and .gazebo files.
+* added LocCam
+* add PTU and NavCam
+* added GPS
 * added martas correct dimensions
 * added LiDAR
 * added IMU

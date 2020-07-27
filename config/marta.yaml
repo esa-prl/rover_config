@@ -27,7 +27,7 @@ locomotion_manager_node:
 ptu_control_node:
     ros__parameters:
         use_sim_time: True
-        robot_description: ''
+        urdf_path: ''
         pan_joint_identifier: 'PAN'
         tilt_joint_identifier: 'TLT'
 
@@ -40,7 +40,7 @@ stop_mode_node:
     ros__parameters:
         use_sim_time: True
         # URDF Model Path
-        robot_description: ''
+        urdf_path: ''
 
         enable_pose_name: "NONE"
         disable_pose_name: "NONE"
@@ -60,7 +60,7 @@ simple_rover_locomotion_node:
     ros__parameters:
         use_sim_time: True
         # URDF Model Path
-        robot_description: ''
+        urdf_path: ''
 
         enable_pose_name: "straight"
         disable_pose_name: "stowed"

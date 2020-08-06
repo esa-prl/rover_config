@@ -3,9 +3,9 @@
 <package format="3">
   <name>rover_config</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Package contain config files for the rovers.</description>
   <maintainer email="miro.voellmy@esa.int">freki</maintainer>
-  <license>TODO: License declaration</license>
+  <license>GPLv3</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <depend>rclcpp</depend>

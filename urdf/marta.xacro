@@ -113,6 +113,17 @@
         <box size="${chassis_x} ${chassis_y} ${chassis_z}"/>
       </geometry>
     </collision>
+    <!--  Inertia is defined in base_link_inertia as KDL does not support inertia in base_links -->
+    <visual>
+      <origin xyz="0 0 ${chassis_z / 2 - 0.03}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${chassis_x} ${chassis_y} ${chassis_z}"/>
+      </geometry>
+    </visual>
+  </link>
+  
+  <!-- Inertia Dummy Link -->
+  <link name="base_link_inertia">
     <inertial>
        <mass value="${chassis_mass}"/>
         <inertia
@@ -123,13 +134,15 @@
             ixz="0"
             iyz="0"/>
     </inertial>
-    <visual>
-      <origin xyz="0 0 ${chassis_z / 2 - 0.03}" rpy="0 0 0"/>
-      <geometry>
-        <box size="${chassis_x} ${chassis_y} ${chassis_z}"/>
-      </geometry>
-    </visual>
   </link>
+
+  <joint name="joint_inertia" type="fixed">
+    <parent link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <child link="base_link_inertia"/>
+  </joint>
+
+
 
   <!-- BOGIE DEFINITION -->
   <xacro:macro name="bogie" params="position bogie_mass bogie_r bogie_l dep_pos_z dep_rot_y *origin_bogie *geometry">

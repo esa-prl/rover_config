@@ -5,6 +5,7 @@ gamepad_parser_node:
         continuous_data_streaming_locomotion: False
         continuous_data_streaming_ptu: True
 
+
 joy_node:
     ros__parameters:
         use_sim_time: True
@@ -23,6 +24,14 @@ locomotion_manager_node:
     ros__parameters:
         use_sim_time: True
         locomotion_modes: ["simple_rover_locomotion_node", "wheel_walking_node", "stop_mode_node"]
+
+nmea_navsat_driver:
+  ros__parameters:
+    port: "/dev/marta-gnss"
+    baud: 38400
+    frame_id: "gps"
+    time_ref_source: "gps"
+    useRMC: False
 
 ptu_control_node:
     ros__parameters:

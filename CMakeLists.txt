@@ -17,30 +17,15 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_index_cpp REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(urdf REQUIRED)
 
-include_directories(include)
-
-set(dependencies "ament_index_cpp" "rclcpp" "urdf")
-
-add_executable(parser src/parser.cpp src/robot.cpp)
-ament_target_dependencies(parser ${dependencies})
-
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY maps DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY models DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY rviz DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
 install(DIRECTORY worlds DESTINATION share/${PROJECT_NAME})
-install(DIRECTORY models DESTINATION share/${PROJECT_NAME})
 
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.sh.in")
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.dsv.in")
-
-install(TARGETS
-  parser
-  DESTINATION lib/${PROJECT_NAME})
-
 
 ament_package()

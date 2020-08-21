@@ -37,7 +37,7 @@
     <xacro:property name="tilt_upper" value="1.57" />
     <xacro:property name="joint_tilt_pos_y" value="-0.0095" />
     <xacro:property name="joint_tilt_pos_z" value="0.0295" />
-    <xacro:property name="joint_tilt_rot_x" value="${pi/2}" />
+    <xacro:property name="joint_tilt_rot_x" value="${-pi/2}" />
 
     <!-- TILT LINK -->
     <xacro:property name="link_tilt_mass" value="0.1" />
@@ -45,13 +45,13 @@
     <xacro:property name="link_tilt_y" value="0.0035" />
     <xacro:property name="link_tilt_z" value="0.072" />
     <xacro:property name="link_tilt_pos_x" value="0.0" />
-    <xacro:property name="link_tilt_pos_y" value="${0.01625 - link_tilt_y}" />
-    <xacro:property name="link_tilt_pos_z" value="${joint_tilt_pos_y}" />
+    <xacro:property name="link_tilt_pos_y" value="${- 0.01625 + link_tilt_y}" />
+    <xacro:property name="link_tilt_pos_z" value="${-joint_tilt_pos_y}" />
 
     <!-- CAM JOINT -->
-    <xacro:property name="joint_cam_pos_y" value="0.015" />
-    <xacro:property name="joint_cam_pos_z" value="${joint_tilt_pos_y}" />
-    <xacro:property name="joint_cam_rot_r" value="${-pi/2}" />
+    <xacro:property name="joint_cam_pos_y" value="-0.015" />
+    <xacro:property name="joint_cam_pos_z" value="${-joint_tilt_pos_y}" />
+    <xacro:property name="joint_cam_rot_r" value="${pi/2}" />
 
     <!-- MAST JOINT -->
     <joint name="ptu_base" type="fixed">

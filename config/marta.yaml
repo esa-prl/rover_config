@@ -5,7 +5,6 @@ gamepad_parser_node:
         continuous_data_streaming_locomotion: False
         continuous_data_streaming_ptu: True
 
-
 joy_node:
     ros__parameters:
         use_sim_time: True

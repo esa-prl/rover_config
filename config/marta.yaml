@@ -43,6 +43,7 @@ robot_state_publisher_node:
     ros__parameters:
         use_sim_time: True
         robot_description: ''
+        ignore_timestamp: False
 
 stop_mode_node:
     ros__parameters:

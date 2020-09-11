@@ -14,7 +14,6 @@
   <xacro:property name="use_ptu"      value="$(arg use_ptu)" /> 
   <xacro:property name="use_loc_cam"  value="$(arg use_loc_cam)" /> 
 
-
   <!-- PHYSICS -->
   <xacro:property name="damping" value="2" />
   <xacro:property name="friction" value="0.1" />
@@ -70,7 +69,6 @@
   <xacro:property name="str_z" value="0.0435" />
   <xacro:property name="str_x_link_diff" value="0.017" />
 
-
   <!-- STEERING JOINT -->
   <!-- <xacro:property name="str_mass" value="0.025" /> -->
   <xacro:property name="str_mass" value="0.25" />
@@ -78,7 +76,6 @@
   <xacro:property name="str_pos_long_x" value="0.045" />
   <xacro:property name="str_pos_y" value="0.031" />
   <xacro:property name="str_pos_z" value="0.0305" />
-
 
   <!-- WHEEL -->
   <!-- <xacro:property name="wheel_mass" value="0.23" /> -->
@@ -142,8 +139,6 @@
     <child link="base_link_inertia"/>
   </joint>
 
-
-
   <!-- BOGIE DEFINITION -->
   <xacro:macro name="bogie" params="position bogie_mass bogie_r bogie_l dep_pos_z dep_rot_y *origin_bogie">
     <xacro:property name="bogie_link" value="link_bogie_${position}" />
@@ -167,6 +162,7 @@
               ixz="0"
               iyz="0"/>
       </inertial>
+
       <!-- BAR -->
       <collision>
         <origin xyz="0 0 0" rpy="0 ${pi / 2} 0"/>
@@ -239,6 +235,7 @@
               ixz="0"
               iyz="0"/>
       </inertial>
+
       <!-- STEERING MOTOR -->
       <collision>
         <origin xyz="${str_pos_x} ${str_pos_y-str_y/2} ${str_pos_z * side_sign}" rpy="0 0 0"/>
@@ -253,7 +250,6 @@
         </geometry>
       </visual>
     </link>
-
 
     <!-- STEERING JOINT -->
     <joint name="joint_STR_${position}" type="revolute">
@@ -392,7 +388,6 @@
     <origin xyz="-${str_pos_long_x} ${str_pos_y} ${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
 
-
   <!-- RIGHT BOGIE  -->
   <xacro:property name="side_bogie_right_name" value="RFB" />
 
@@ -426,7 +421,6 @@
     <origin xyz="${rear_dep_pos_x} ${rear_dep_pos_y} -${rear_dep_pos_z}" rpy="0 ${- pi / 2} 0"/>
     <origin xyz="-${str_pos_short_x} ${str_pos_y} -${str_pos_z}" rpy="${pi / 2} 0 0"/>
   </xacro:wheel_assembly>
-
 
   <!-- Sensors -->
   <!-- PTU w/ Navigation Cam-->
@@ -466,7 +460,6 @@
       <origin xyz="0.09 0  0"/>
     </xacro:imu>
   </xacro:if>
-
 
   <!-- GNSS -->
   <xacro:if value="${use_gnss}"> 

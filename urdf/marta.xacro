@@ -211,6 +211,7 @@
   </xacro:macro>
 
   <!-- Definition for a wheel assembly -->
+  <!-- side_sign inverts some geometry values and needs to be 1 for left side assemblies and -1 for right side assemblies -->
   <xacro:macro name="wheel_assembly" params="position bogie_name str_pos_x side_sign *origin_DEP *origin_STR">
 
     <!-- DEPLOYMENT JOINT -->
@@ -370,7 +371,7 @@
     </transmission>
   </xacro:macro>
 
-  <!-- Define all the wheel assemblies as set their positions -->
+  <!-- Define all wheel assemblies and set their positions -->
   <!-- LEFT BOGIE  -->
   <xacro:property name="side_bogie_left_name" value="LFB" />
   

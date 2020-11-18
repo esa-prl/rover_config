@@ -55,6 +55,8 @@ stop_mode_node:
         steering_identifier: "STR"
         deployment_identifier: "DEP"
 
+        leg_regex: "_(.{2})$"
+
         enable_pose_name: "NONE"
         disable_pose_name: "NONE"
 
@@ -74,6 +76,8 @@ simple_rover_locomotion_node:
         use_sim_time: True
         # URDF Model Path
         urdf_path: ''
+
+        leg_regex: "_(.{2})$"
 
         driving_identifier: "DRV"
         steering_identifier: "STR"

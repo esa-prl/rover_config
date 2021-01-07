@@ -13,7 +13,9 @@
         <STR>20.0 0.1 0.0</STR>
       </position_pids>
       <velocity_pids>
+        <DEP>5.0 0.1 0.0</DEP>
         <DRV>5.0 0.1 0.0</DRV>
+        <STR>5.0 0.1 0.0</STR>
       </velocity_pids>
     </plugin>
 

@@ -20,7 +20,6 @@
         <parent link="${parent_link}"/>
         <child link="link_${name}"/>
         <xacro:insert_block name="origin_cam" />
-        <axis xyz="1 0 0" />
     </joint>
 
     <!-- CAMERA LINK -->
@@ -50,6 +49,14 @@
       </visual>
     </link>
 
+    <!-- By convention the image frames axes are defines as: x-right, y-down, z-out of image  -->
+    <!-- That's why a another link for the image frame is needed. -->
+    <joint name="joint_${name}_frame" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0 ${-pi/2}"/>
+      <parent link="link_${name}"/>
+      <child link="link_${name}_frame"/>
+    </joint>
+    <link name="link_${name}_frame"/>
 
   </xacro:macro>
 </robot>

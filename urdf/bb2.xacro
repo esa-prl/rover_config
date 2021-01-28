@@ -3,7 +3,9 @@
   <xacro:macro name="bb2" params="name parent_link *origin_cam">
     <xacro:include filename="$(find rover_config)/urdf/bb2.gazebo" />
 
-    <xacro:sensors cam_name="${name}"/>
+    <!-- baseline defines the distance between the two optical sensors -->
+    <xacro:property name="baseline" value="0.12" />
+    <xacro:sensors cam_name="${name}" baseline="${baseline}"/>
 
     <!-- PARAMETERS -->
     <xacro:property name="link_cam_mass" value="1.0" />
@@ -52,7 +54,7 @@
     <!-- By convention the image frames axes are defines as: x-right, y-down, z-out of image  -->
     <!-- That's why a another link for the image frame is needed. -->
     <joint name="joint_${name}_frame" type="fixed">
-      <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0 ${-pi/2}"/>
+      <origin xyz="0.0 ${baseline/2} 0.018" rpy="${-pi/2} 0 ${-pi/2}"/>
       <parent link="link_${name}"/>
       <child link="link_${name}_frame"/>
     </joint>

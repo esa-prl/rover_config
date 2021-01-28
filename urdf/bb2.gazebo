@@ -1,16 +1,15 @@
 <?xml version="1.0"?>
 <robot name="bb2_sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="sensors" params="cam_name">
+  <xacro:macro name="sensors" params="cam_name baseline">
     <gazebo reference="link_${cam_name}">
       <!-- Specs from https://www.upc.edu/sct/ca/documents_equipament/d_186_id-488.pdf -->
-      <xacro:property name="baseline" value="0.12" />
 
-      <xacro:macro name="bb2_sensor" params="camera_name pos_y">
+      <xacro:macro name="bb2_sensor" params="camera_name baseline">
         <sensor type="multicamera" name="${camera_name}">
           <update_rate>20.0</update_rate>
           <visualize>false</visualize>
           <camera name="left">
-            <pose>0.0 ${+pos_y} 0.0 0 0 0</pose>
+            <pose>0.0 0.0 0.0 0 0 0</pose>
             <horizontal_fov>${97 * pi/180.0}</horizontal_fov>
             <image>
               <format>R8G8B8</format>
@@ -28,7 +27,7 @@
             </noise>
           </camera>
           <camera name="right">
-            <pose>0 ${-pos_y} 0.0 0 0 0</pose>
+            <pose>0 ${-baseline} 0.0 0 0 0</pose>
             <horizontal_fov>${97 * pi/180.0}</horizontal_fov>
             <image>
               <format>R8G8B8</format>
@@ -53,12 +52,12 @@
             <image_topic_name>image_raw</image_topic_name>
             <camera_info_topic_name>camera_info</camera_info_topic_name>
             <frame_name>link_${camera_name}_frame</frame_name>
-            <hack_baseline>${2*pos_y}</hack_baseline>
+            <hack_baseline>${baseline}</hack_baseline>
           </plugin>
         </sensor>
       </xacro:macro>
 
-      <xacro:bb2_sensor camera_name="${cam_name}" pos_y="${baseline/2}" />
+      <xacro:bb2_sensor camera_name="${cam_name}" baseline="${baseline}"/>
 
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>

@@ -109,4 +109,3 @@ odom_to_tf_node:
     ros__parameters:
         use_sim_time: True
         gazebo_entity: "marta"
-        body_tf_name: "odom"

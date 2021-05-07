@@ -100,7 +100,7 @@ controller_server:
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
       required_movement_radius: 0.5
-      movement_time_allowance: 10.0
+      movement_time_allowance: 100.0
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
@@ -111,17 +111,17 @@ controller_server:
     FollowPath:
       plugin: "traj_controller_ros2::TrajectoryController"
       debug_trajectory_details: True
-      min_turn_radius: 1.5 # m this is a guess
-      translational_velocity: 0.5 # m/s
-      rotational_velocity: 10.0 # deg/s
-      look_ahead_distance: 3.0 # # m - should be 1 - 1.5 x min_turn_radius
-      safety_corridor: 3.0 #  m to either side of the straight line connecting waypoints - the corridor should be 2/3 x look_ahead_distance
+      min_turn_radius: 0.6 # m this is a guess
+      translational_velocity: 0.2 # m/s
+      rotational_velocity: 8.6 # deg/s
+      look_ahead_distance: 0.6 # # m - should be 1 - 1.5 x min_turn_radius
+      safety_corridor: 0.2 #  m to either side of the straight line connecting waypoints - the corridor should be 2/3 x look_ahead_distance
       allow_reverse: false # untested
-      alignment_pd_controller_p: 1.5 # E.g. the fraction (rotational velocity / saturation)
-      alignment_pd_controller_d: 1.25 # E.g. 0.75 * p
-      alignment_pd_controller_saturation: 5.0 # deg
-      default_waypoint_tolerances_position: 0.2 # m
-      default_waypoint_tolerances_heading: 2.0 # deg
+      alignment_pd_controller_p: 0.43 # E.g. the fraction (rotational velocity / saturation)
+      alignment_pd_controller_d: 0.3225 # E.g. 0.75 * p
+      alignment_pd_controller_saturation: 20.0 # deg
+      default_waypoint_tolerances_position: 0.075 # m
+      default_waypoint_tolerances_heading: 3.0 # deg
 
 controller_server_rclcpp_node:
   ros__parameters:
